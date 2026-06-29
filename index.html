@@ -67,10 +67,6 @@ select:focus{border-color:#3b82f6}
 .milestone{padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.04em;display:inline-block}
 .m-t3{background:#c2410c;color:#fff}.m-t2{background:#374151;color:#d1d5db}.m-t1{background:#78350f;color:#fcd34d}.m-none{color:#4b6478;font-size:.75rem}
 
-.setup-warning{background:#1a1000;border:1px solid #78350f;border-radius:10px;padding:18px 20px;margin-bottom:16px;display:none}
-.setup-warning h3{color:#fb923c;font-size:.9rem;margin-bottom:6px}
-.setup-warning p{color:#92400e;font-size:.83rem;line-height:1.65}
-
 /* DASHBOARD */
 .dash-selector-wrap{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:22px 24px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .dash-selector-wrap label{font-size:.88rem;color:#94a3b8;font-weight:500;white-space:nowrap}
@@ -167,20 +163,6 @@ textarea.form-input{resize:vertical;min-height:90px}
 .pts-table tr:hover td{background:#091829}
 .pts-table tr:last-child td{border-bottom:none}
 .pts-val{font-weight:700;color:#f97316;font-size:.85rem}
-
-/* ADMIN */
-.admin-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:28px;margin-bottom:16px;max-width:640px}
-.admin-title{font-size:1rem;font-weight:700;margin-bottom:8px}
-.admin-desc{color:#94a3b8;font-size:.85rem;line-height:1.65;margin-bottom:18px}
-.admin-section-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#4b6478;font-weight:700;margin:18px 0 10px}
-.config-wrap{display:flex;gap:8px}
-.config-input{flex:1;background:#071320;border:1px solid #162d47;border-radius:6px;padding:9px 12px;color:#e2e8f0;font-size:.82rem;outline:none}
-.config-input:focus{border-color:#3b82f6}
-.btn-save{background:#1d4ed8;border:none;color:#fff;padding:9px 16px;border-radius:6px;cursor:pointer;font-size:.82rem;font-weight:600;white-space:nowrap}
-.btn-save:hover{background:#2563eb}
-.btn-reset{background:transparent;border:1px solid #dc2626;color:#dc2626;padding:9px 20px;border-radius:8px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .15s}
-.btn-reset:hover{background:#450a0a}
-.empty-state{text-align:center;padding:50px 20px;color:#4b6478}
 code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-size:.8rem}
 </style>
 </head>
@@ -199,7 +181,6 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
     <button class="nav-btn dash-btn" onclick="switchTab('dashboard',this)">👤 My Dashboard</button>
     <button class="nav-btn"          onclick="switchTab('form',this)">⊕ Submit Activity Form</button>
     <button class="nav-btn"          onclick="switchTab('rules',this)">📋 Rules &amp; Tiers</button>
-    <button class="nav-btn"          onclick="switchTab('admin',this)">⚙ Admin</button>
   </nav>
 </header>
 
@@ -214,10 +195,6 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
 
 <!-- STANDINGS -->
 <div class="tab-panel active" id="tab-standings">
-  <div class="setup-warning" id="setup-warn">
-    <h3>⚠ Google Apps Script URL Required</h3>
-    <p>Deploy <code>apps-script.js</code> as a GAS Web App, then paste the URL in the <strong>Admin</strong> tab.</p>
-  </div>
   <div class="filters">
     <div class="search-wrap">
       <span class="s-icon">🔍</span>
@@ -445,54 +422,20 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
   </div>
 </div>
 
-<!-- ADMIN -->
-<div class="tab-panel" id="tab-admin">
-  <div class="admin-card">
-    <div class="admin-title">⚙ Google Apps Script URL</div>
-    <div class="admin-desc">Deploy <code>apps-script.js</code> as a Web App (Execute as: Me, Access: Anyone), then paste the URL here. This powers the leaderboard, form submissions, and disputes.</div>
-    <div class="config-wrap">
-      <input type="url" class="config-input" id="gas-url-input" placeholder="https://script.google.com/macros/s/…/exec">
-      <button class="btn-save" onclick="saveGasUrl()">Save &amp; Load</button>
-    </div>
-  </div>
-  <div class="admin-card">
-    <div class="admin-title">🔗 UTM Base URLs</div>
-    <div class="admin-desc">Discord links are pulled automatically from the UTM sheet per leader. Set base URLs for the other two link types.</div>
-    <div class="info-box" style="margin-bottom:14px">
-      <span style="color:#4ade80">✓</span>
-      <div class="ib-content" style="font-size:.82rem"><strong style="color:#e2e8f0">Discord UTM links</strong> are loaded from your UTM sheet and matched to each leader by name automatically.</div>
-    </div>
-    <div class="admin-section-title">Product / Feature Promotion URL</div>
-    <div class="config-wrap">
-      <input type="url" class="config-input" id="utm-product-input" placeholder="https://www.browserstack.com/…">
-      <button class="btn-save" onclick="saveUtm('product')">Save</button>
-    </div>
-    <div class="admin-section-title">Events / Breakpoint URL</div>
-    <div class="config-wrap">
-      <input type="url" class="config-input" id="utm-event-input" placeholder="https://browserstack.com/events/breakpoint">
-      <button class="btn-save" onclick="saveUtm('event')">Save</button>
-    </div>
-  </div>
-  <div class="admin-card">
-    <div class="admin-title">🔄 Data Controls</div>
-    <div class="admin-desc">Pull the latest data from your Google Sheet.</div>
-    <button class="btn-reset" onclick="refreshData()">🔄 Refresh Leaderboard</button>
-  </div>
-</div>
-
 </div><!-- /main -->
 
 <script>
-// ── State ──────────────────────────────────────────────────
-let GAS_URL      = localStorage.getItem('gas_url') || '';
-let allLeaders   = [];
-let leaderDataMap= {};
-let colMeta      = [];
-let utmLinksMap  = {};
-let myLeader     = localStorage.getItem('my_leader') || '';
+// ── Config (hardcoded — no admin tab needed) ───────────────
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx8h9ZEsT4VZh3kvh-DdM0AF5XRBxYbp3lkUHGE_kbKnDsnE9HlPGI_Z2qcNXssFhoS/exec';
 
-const IND_KW  = ['collab','highlight','referral','alpha user','ama','breakpoint','product promo','discord join (unique)'];
-const BK_KW   = ['breakpoint'];
+// ── State ──────────────────────────────────────────────────
+let allLeaders    = [];
+let leaderDataMap = {};
+let colMeta       = [];
+let utmLinksMap   = {};
+let myLeader      = localStorage.getItem('my_leader') || '';
+
+const IND_KW = ['collab','highlight','referral','alpha user','ama','breakpoint','product promo','discord join (unique)'];
 
 // ── Helpers ────────────────────────────────────────────────
 const AV_COLORS=['#1d4ed8','#0891b2','#059669','#d97706','#dc2626','#7c3aed','#db2777','#0369a1','#b45309','#6d28d9'];
@@ -501,13 +444,11 @@ function avInitials(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function utmSlug(name,city){return(name.split(' ')[0]+'_'+city).toLowerCase().replace(/[^a-z0-9_]/g,'');}
 
-function banner(id,show){
-  ['form-ok','form-err','form-loading','dispute-ok','dispute-err','dispute-loading'].forEach(b=>{
-    const el=document.getElementById(b);
-    if(el) el.classList.remove('show');
-  });
-  if(id&&show){const el=document.getElementById(id);if(el)el.classList.add('show');}
+function clearBanners(){
+  ['form-ok','form-err','form-loading','dispute-ok','dispute-err','dispute-loading']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('show');});
 }
+function showBanner(id){clearBanners();const el=document.getElementById(id);if(el)el.classList.add('show');}
 
 // ── Tabs ───────────────────────────────────────────────────
 function switchTab(tab,btn){
@@ -517,50 +458,24 @@ function switchTab(tab,btn){
   if(btn)btn.classList.add('active');
 }
 
-// ── JSONP ──────────────────────────────────────────────────
-function jsonp(url,cb){
-  const id='_cb_'+Date.now();
-  window[id]=function(d){delete window[id];document.head.querySelector('script[data-jsonp]')?.remove();cb(null,d);};
-  const s=document.createElement('script');
-  s.setAttribute('data-jsonp','');
-  s.src=url;
-  s.onerror=()=>{delete window[id];cb(new Error('Request failed'));};
-  document.head.appendChild(s);
-}
-function gasCall(params,cb){
-  const url=GAS_URL+'?'+new URLSearchParams({...params,callback:'_cb_'+Date.now()}).toString();
-  // reuse jsonp but with the callback already in url
-  const id=url.match(/callback=([^&]+)/)[1];
-  window[id]=function(d){delete window[id];document.head.querySelector('script[data-jsonp]')?.remove();cb(null,d);};
-  const s=document.createElement('script');s.setAttribute('data-jsonp','');s.src=url;
-  s.onerror=()=>{delete window[id];cb(new Error('Request failed'));};
-  document.head.appendChild(s);
-}
-
 // ── Load leaderboard ───────────────────────────────────────
 function loadLeaderboardData(){
-  if(!GAS_URL){
-    document.getElementById('setup-warn').style.display='block';
-    document.getElementById('lb-body').innerHTML='<div class="empty-state">⚙ Configure the GAS URL in the <strong>Admin</strong> tab.</div>';
-    setStats(0,0,0,0);return;
-  }
-  document.getElementById('setup-warn').style.display='none';
   document.getElementById('lb-body').innerHTML='<div class="loading"><div class="spinner"></div>Loading from Google Sheets…</div>';
   const cb='_lbcb_'+Date.now();
   window[cb]=function(d){delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();processSheetData(d);};
   const s=document.createElement('script');s.setAttribute('data-jsonp','');
   s.src=GAS_URL+'?callback='+cb;
-  s.onerror=()=>{delete window[cb];document.getElementById('lb-body').innerHTML='<div class="empty-state">❌ Failed to load. Check your GAS URL in Admin.</div>';};
+  s.onerror=()=>{delete window[cb];document.getElementById('lb-body').innerHTML='<div class="loading">❌ Failed to load data. Please refresh the page.</div>';};
   document.head.appendChild(s);
 }
 
 function processSheetData(data){
   if(!data||data.error){
-    document.getElementById('lb-body').innerHTML='<div class="empty-state">❌ '+(data?.error||'Unknown error')+'</div>';return;
+    document.getElementById('lb-body').innerHTML='<div class="loading">❌ '+(data?.error||'Unknown error')+'</div>';return;
   }
   const {headers,rows}=data;
   if(!headers||!rows||!rows.length){
-    document.getElementById('lb-body').innerHTML='<div class="empty-state">No data found in sheet.</div>';return;
+    document.getElementById('lb-body').innerHTML='<div class="loading">No data found.</div>';return;
   }
   utmLinksMap=data.utmLinks||{};
   const h=headers.map(s=>String(s).toLowerCase().trim());
@@ -570,7 +485,7 @@ function processSheetData(data){
   colMeta=headers.map((hdr,i)=>{
     if(i===nameCol||i===cityCol||i===totalCol)return null;
     const lc=h[i];if(!lc)return null;
-    return{name:hdr,idx:i,isIndividual:IND_KW.some(k=>lc.includes(k)),isBreakpoint:BK_KW.some(k=>lc.includes(k))};
+    return{name:hdr,idx:i,isIndividual:IND_KW.some(k=>lc.includes(k))};
   }).filter(Boolean);
 
   leaderDataMap={};
@@ -582,8 +497,8 @@ function processSheetData(data){
       const total=Number(row[totalCol])||0;
       const combined=colMeta.filter(c=>!c.isIndividual).reduce((s,c)=>s+(Number(row[c.idx])||0),0);
       const individual=Math.max(0,total-combined);
-      const bkPts=colMeta.filter(c=>c.isBreakpoint).reduce((s,c)=>s+(Number(row[c.idx])||0),0);
-      const hasMeetup=colMeta.some(c=>h[c.idx].includes('meetup')&&!h[c.idx].includes('highlight')&&(Number(row[c.idx])||0)>0);
+      const bkPts=colMeta.filter(c=>h[c.idx]&&h[c.idx].includes('breakpoint')).reduce((s,c)=>s+(Number(row[c.idx])||0),0);
+      const hasMeetup=colMeta.some(c=>h[c.idx]&&h[c.idx].includes('meetup')&&!h[c.idx].includes('highlight')&&(Number(row[c.idx])||0)>0);
       let milestone='NONE';
       if(total>=2000)milestone='TIER 3';else if(total>=1550)milestone='TIER 2';else if(total>=650)milestone='TIER 1';
       const breakdown={};colMeta.forEach(c=>{breakdown[c.name]=Number(row[c.idx])||0;});
@@ -591,13 +506,11 @@ function processSheetData(data){
       return{name,city,combined,individual,total,milestone,bkPts,hasMeetup};
     }).sort((a,b)=>b.total-a.total);
 
-  // Cities
   const cities=[...new Set(allLeaders.map(l=>l.city).filter(Boolean))].sort();
   const sel=document.getElementById('filter-chapter');
   sel.innerHTML='<option value="all">All Chapters</option>';
   cities.forEach(c=>{sel.innerHTML+=`<option value="${c.toLowerCase()}">${esc(c)}</option>`;});
 
-  // Dashboard selector
   const dSel=document.getElementById('my-leader-sel');
   dSel.innerHTML='<option value="">— Select your name —</option>';
   allLeaders.forEach(l=>{
@@ -609,19 +522,15 @@ function processSheetData(data){
   const meetupsHosted=allLeaders.filter(l=>l.hasMeetup).length;
   const tier3=allLeaders.filter(l=>l.milestone==='TIER 3').length;
   const bkRegs=Math.round(allLeaders.reduce((s,l)=>s+l.bkPts,0)/10);
-  setStats(allLeaders.length,meetupsHosted,tier3,bkRegs);
+  document.getElementById('s-leaders').textContent=allLeaders.length;
+  document.getElementById('s-meetups').textContent=meetupsHosted;
+  document.getElementById('s-tier3').textContent=tier3;
+  document.getElementById('s-bkpt').textContent=bkRegs||'—';
   renderTable(allLeaders);
 }
 
-function setStats(a,m,t3,bk){
-  document.getElementById('s-leaders').textContent=a||'—';
-  document.getElementById('s-meetups').textContent=m||'—';
-  document.getElementById('s-tier3').textContent=t3||'—';
-  document.getElementById('s-bkpt').textContent=bk||'—';
-}
-
 function renderTable(leaders){
-  if(!leaders.length){document.getElementById('lb-body').innerHTML='<div class="empty-state">No results match your filters.</div>';return;}
+  if(!leaders.length){document.getElementById('lb-body').innerHTML='<div class="loading">No results match your filters.</div>';return;}
   document.getElementById('lb-body').innerHTML=leaders.map((l,i)=>{
     const rank=i+1;
     const rC=rank===1?'r1':rank===2?'r2':rank===3?'r3':'rn';
@@ -675,7 +584,8 @@ function renderDashboard(name){
   const mEl=document.getElementById('dash-milestone');
   mEl.textContent=d.milestone==='NONE'?'No Tier Yet':d.milestone;
   mEl.style.color=d.milestone==='TIER 3'?'#f97316':d.milestone==='TIER 2'?'#94a3b8':d.milestone==='TIER 1'?'#d97706':'#4b6478';
-  renderUTMLinks(d);renderBreakdown(d);
+  renderUTMLinks(d);
+  renderBreakdown(d);
   document.getElementById('d-name').value=d.name;
   document.getElementById('d-city').value=d.city;
 }
@@ -691,15 +601,9 @@ function findDiscordUTM(name){
 }
 
 function renderUTMLinks(d){
-  const productBase=localStorage.getItem('utm_product')||'';
-  const eventBase=localStorage.getItem('utm_event')||'';
-  const s=utmSlug(d.name,d.city);
-  const p=`utm_source=community&utm_medium=chapter_leader&utm_campaign=${encodeURIComponent(d.city.toLowerCase())}&utm_content=${s}`;
   const discordUrl=findDiscordUTM(d.name);
   const links=[
-    {label:'💬 Discord Community Join',url:discordUrl,placeholder:discordUrl?'':'No Discord UTM found — contact BrowserStack team'},
-    {label:'🚀 Product / Feature Promo',url:productBase?(productBase+(productBase.includes('?')?'&':'?')+p):'',placeholder:'Set Product URL in Admin tab'},
-    {label:'🎯 Events / Breakpoint',url:eventBase?(eventBase+(eventBase.includes('?')?'&':'?')+p):'',placeholder:'Set Events URL in Admin tab'},
+    {label:'💬 Discord Community Join',url:discordUrl,placeholder:'No Discord UTM found — contact BrowserStack team'},
   ];
   document.getElementById('utm-links-container').innerHTML=links.map((lk,i)=>`
     <div class="utm-link-row">
@@ -729,49 +633,43 @@ function renderBreakdown(d){
     </tr>`).join('');
 }
 
-// ── Activity Form → GAS ────────────────────────────────────
+// ── Activity Form ──────────────────────────────────────────
 function submitActivityForm(e){
   e.preventDefault();
-  if(!GAS_URL){alert('GAS URL not set. Go to Admin tab first.');return;}
   const btn=document.getElementById('form-btn');
-  btn.disabled=true;banner('form-loading',true);
+  btn.disabled=true;showBanner('form-loading');
 
   const params={
     action:'submitForm',
-    leaderName:     document.getElementById('fl-name').value.trim(),
-    city:           document.getElementById('fl-city').value.trim(),
-    dateOfActivity: document.getElementById('fl-date').value,
-    attendance:     document.getElementById('fl-attendance').value.trim(),
-    whoFoundSpeaker:document.querySelector('input[name="fl-speaker"]:checked')?.value||'',
-    collaborated:   document.querySelector('input[name="fl-collab"]:checked')?.value||'',
+    leaderName:      document.getElementById('fl-name').value.trim(),
+    city:            document.getElementById('fl-city').value.trim(),
+    dateOfActivity:  document.getElementById('fl-date').value,
+    attendance:      document.getElementById('fl-attendance').value.trim(),
+    whoFoundSpeaker: document.querySelector('input[name="fl-speaker"]:checked')?.value||'',
+    collaborated:    document.querySelector('input[name="fl-collab"]:checked')?.value||'',
     meetupHighlights:document.getElementById('fl-highlights').value.trim(),
-    referral:       document.getElementById('fl-referral').value.trim(),
-    promotingEvents:document.getElementById('fl-promoting').value.trim(),
+    referral:        document.getElementById('fl-referral').value.trim(),
+    promotingEvents: document.getElementById('fl-promoting').value.trim(),
   };
 
   const cb='_fmcb_'+Date.now();
   window[cb]=function(res){
     delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();
     btn.disabled=false;
-    if(res&&res.success){
-      banner('form-ok',true);document.getElementById('activity-form').reset();
-      setTimeout(()=>banner(null,false),6000);
-    }else{
-      banner('form-err',true);setTimeout(()=>banner(null,false),6000);
-    }
+    if(res&&res.success){showBanner('form-ok');document.getElementById('activity-form').reset();setTimeout(clearBanners,6000);}
+    else{showBanner('form-err');setTimeout(clearBanners,6000);}
   };
   const s=document.createElement('script');s.setAttribute('data-jsonp','');
   s.src=GAS_URL+'?'+new URLSearchParams({...params,callback:cb}).toString();
-  s.onerror=()=>{delete window[cb];btn.disabled=false;banner('form-err',true);setTimeout(()=>banner(null,false),6000);};
+  s.onerror=()=>{delete window[cb];btn.disabled=false;showBanner('form-err');setTimeout(clearBanners,6000);};
   document.head.appendChild(s);
 }
 
-// ── Dispute → GAS ──────────────────────────────────────────
+// ── Dispute ────────────────────────────────────────────────
 function submitDispute(e){
   e.preventDefault();
-  if(!GAS_URL){alert('GAS URL not set. Go to Admin tab first.');return;}
   const btn=document.getElementById('d-btn');
-  btn.disabled=true;banner('dispute-loading',true);
+  btn.disabled=true;showBanner('dispute-loading');
 
   const params={
     action:'complaint',
@@ -788,38 +686,20 @@ function submitDispute(e){
     delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();
     btn.disabled=false;
     if(res&&res.success){
-      banner('dispute-ok',true);document.getElementById('dispute-form').reset();
+      showBanner('dispute-ok');document.getElementById('dispute-form').reset();
       document.getElementById('d-name').value=myLeader;
       const d=leaderDataMap[myLeader.toLowerCase()];if(d)document.getElementById('d-city').value=d.city;
-      setTimeout(()=>banner(null,false),6000);
-    }else{banner('dispute-err',true);setTimeout(()=>banner(null,false),6000);}
+      setTimeout(clearBanners,6000);
+    }else{showBanner('dispute-err');setTimeout(clearBanners,6000);}
   };
   const s=document.createElement('script');s.setAttribute('data-jsonp','');
   s.src=GAS_URL+'?'+new URLSearchParams({...params,callback:cb}).toString();
-  s.onerror=()=>{delete window[cb];btn.disabled=false;banner('dispute-err',true);setTimeout(()=>banner(null,false),6000);};
+  s.onerror=()=>{delete window[cb];btn.disabled=false;showBanner('dispute-err');setTimeout(clearBanners,6000);};
   document.head.appendChild(s);
 }
 
-// ── Admin ──────────────────────────────────────────────────
-function saveGasUrl(){
-  const url=document.getElementById('gas-url-input').value.trim();
-  if(!url){alert('Please enter a valid URL.');return;}
-  GAS_URL=url;localStorage.setItem('gas_url',url);loadLeaderboardData();
-}
-function saveUtm(type){
-  const val=document.getElementById('utm-'+type+'-input').value.trim();
-  localStorage.setItem('utm_'+type,val);
-  alert('Saved!');
-  const d=leaderDataMap[myLeader.toLowerCase()];if(d)renderUTMLinks(d);
-}
-function refreshData(){loadLeaderboardData();switchTab('standings',document.querySelectorAll('.nav-btn')[0]);}
-
 // ── Init ───────────────────────────────────────────────────
-(function(){
-  if(GAS_URL)document.getElementById('gas-url-input').value=GAS_URL;
-  ['product','event'].forEach(t=>{const v=localStorage.getItem('utm_'+t)||'';if(v)document.getElementById('utm-'+t+'-input').value=v;});
-  loadLeaderboardData();
-})();
+loadLeaderboardData();
 </script>
 </body>
 </html>
