@@ -22,6 +22,20 @@ button,select,input,textarea{font-family:inherit}
 .pw-err{color:#f87171;font-size:.82rem;margin-top:10px;display:none}
 .pw-err.show{display:block}
 
+/* ── Event Popup ── */
+#event-popup{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:8888;display:none;align-items:center;justify-content:center}
+#event-popup.show{display:flex}
+.ep-box{background:#0b1929;border:1px solid #f97316;border-radius:16px;padding:36px 40px;width:100%;max-width:460px;text-align:center;position:relative}
+.ep-icon{font-size:3rem;margin-bottom:14px}
+.ep-badge{display:inline-block;background:#7c2d12;color:#fed7aa;font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:4px 12px;border-radius:20px;margin-bottom:14px;text-transform:uppercase}
+.ep-title{font-size:1.45rem;font-weight:800;color:#f97316;margin-bottom:8px}
+.ep-date{font-size:1.1rem;font-weight:700;color:#e2e8f0;margin-bottom:6px}
+.ep-sub{font-size:.85rem;color:#94a3b8;line-height:1.65;margin-bottom:28px}
+.ep-btn{background:#f97316;border:none;color:#fff;padding:13px 36px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;transition:background .15s}
+.ep-btn:hover{background:#ea580c}
+.ep-skip{display:block;margin-top:14px;color:#4b6478;font-size:.78rem;cursor:pointer;background:none;border:none;width:100%}
+.ep-skip:hover{color:#94a3b8}
+
 header{background:#0b1929;border-bottom:1px solid #162d47;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:14px}
 .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
@@ -185,7 +199,20 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
-<!-- ── MAIN APP (hidden until authenticated) ── -->
+<!-- ── EVENT POPUP ── -->
+<div id="event-popup">
+  <div class="ep-box">
+    <div class="ep-icon">📅</div>
+    <div class="ep-badge">Upcoming Event</div>
+    <div class="ep-title">Chapter Leader Connect</div>
+    <div class="ep-date">30th July 2025</div>
+    <div class="ep-sub">We're bringing all Chapter Leaders together for our quarterly connect! Mark your calendars and make sure you attend — more details will be shared soon.</div>
+    <button class="ep-btn" onclick="closePopup()">Got it, see you there! 🎉</button>
+    <button class="ep-skip" onclick="closePopup()">Remind me later</button>
+  </div>
+</div>
+
+<!-- ── MAIN APP ── -->
 <div id="app" style="display:none">
 
 <header>
@@ -440,8 +467,8 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
-</div><!-- /main -->
-</div><!-- /app -->
+</div>
+</div>
 
 <script>
 // ── Config ─────────────────────────────────────────────────
@@ -456,6 +483,9 @@ function checkPw(){
     sessionStorage.setItem('bs_auth','1');
     document.getElementById('pw-gate').style.display='none';
     document.getElementById('app').style.display='block';
+    if(!sessionStorage.getItem('bs_popup_seen')){
+      document.getElementById('event-popup').classList.add('show');
+    }
     loadLeaderboardData();
   }else{
     document.getElementById('pw-err').classList.add('show');
@@ -463,10 +493,18 @@ function checkPw(){
     document.getElementById('pw-input').focus();
   }
 }
-// Auto-unlock if already authenticated this session
+
+function closePopup(){
+  sessionStorage.setItem('bs_popup_seen','1');
+  document.getElementById('event-popup').classList.remove('show');
+}
+
 if(sessionStorage.getItem('bs_auth')==='1'){
   document.getElementById('pw-gate').style.display='none';
   document.getElementById('app').style.display='block';
+  if(!sessionStorage.getItem('bs_popup_seen')){
+    document.getElementById('event-popup').classList.add('show');
+  }
 }
 
 // ── State ──────────────────────────────────────────────────
@@ -494,7 +532,7 @@ function switchTab(tab,btn){
   if(btn)btn.classList.add('active');
 }
 
-// ── GAS call with token ────────────────────────────────────
+// ── GAS call ──────────────────────────────────────────────
 function gasCall(params,onSuccess,onError){
   const cb='_gascb_'+Date.now();
   window[cb]=function(res){delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();onSuccess(res);};
