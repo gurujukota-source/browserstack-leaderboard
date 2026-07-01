@@ -8,6 +8,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#071320;color:#e2e8f0;min-height:100vh}
 button,select,input,textarea{font-family:inherit}
+
+/* ── Password Gate ── */
 #pw-gate{position:fixed;inset:0;background:#071320;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 .pw-box{background:#0b1929;border:1px solid #162d47;border-radius:16px;padding:40px 44px;width:100%;max-width:400px;text-align:center}
 .pw-logo{width:52px;height:52px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 18px}
@@ -23,11 +25,11 @@ button,select,input,textarea{font-family:inherit}
 .pw-btn:hover:not(:disabled){background:#2563eb}
 .pw-btn:disabled{opacity:.6;cursor:not-allowed}
 .pw-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
-.pw-btn.loading .pw-spinner{display:block}
-.pw-btn.loading .pw-btn-text{opacity:.7}
 .pw-err{color:#f87171;font-size:.82rem;margin-top:10px;display:none}
 .pw-err.show{display:block}
-#event-popup{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:8888;display:none;align-items:center;justify-content:center;padding:20px}
+
+/* ── Event Popup ── */
+#event-popup{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:8888;display:none;align-items:center;justify-content:center;padding:20px}
 #event-popup.show{display:flex}
 .ep-box{background:#0b1929;border:1px solid #f97316;border-radius:16px;padding:36px 40px;width:100%;max-width:460px;text-align:center}
 .ep-icon{font-size:3rem;margin-bottom:14px}
@@ -39,26 +41,34 @@ button,select,input,textarea{font-family:inherit}
 .ep-btn:hover{background:#ea580c}
 .ep-skip{display:block;margin-top:14px;color:#4b6478;font-size:.78rem;cursor:pointer;background:none;border:none;width:100%}
 .ep-skip:hover{color:#94a3b8}
-header{background:#0b1929;border-bottom:1px solid #162d47;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100;gap:12px}
+
+/* ── Header ── */
+header{background:#0b1929;border-bottom:1px solid #162d47;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100;gap:16px}
 .logo{display:flex;align-items:center;gap:14px;flex-shrink:0}
 .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .logo-title{font-size:1.15rem;font-weight:400}.logo-title b{font-weight:800}
 .logo-sub{font-size:.68rem;color:#3d5568;margin-top:1px}
-nav{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end}
-.nav-btn{background:transparent;border:none;color:#6b8299;cursor:pointer;padding:8px 13px;border-radius:8px;font-size:.82rem;font-weight:500;transition:all .15s;white-space:nowrap}
+nav{display:flex;gap:4px;flex-shrink:0}
+.nav-btn{background:transparent;border:none;color:#6b8299;cursor:pointer;padding:8px 14px;border-radius:8px;font-size:.82rem;font-weight:500;transition:all .15s;white-space:nowrap}
 .nav-btn:hover{background:#122030;color:#e2e8f0}
 .nav-btn.active{background:#1d4ed8;color:#fff}
 .nav-btn.dash-btn.active{background:#7c3aed}
+
+/* ── Stats ── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:20px 2rem}
 .stat-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px}
 .stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .si-blue{background:#0e2845}.si-teal{background:#09302a}.si-orange{background:#2d1400}.si-purple{background:#1c0f3f}
 .stat-label{font-size:.65rem;color:#3d5568;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
 .stat-value{font-size:2rem;font-weight:800;color:#f97316;line-height:1.1}
+
+/* ── Main ── */
 .main{padding:0 2rem 3rem}
 .tab-panel{display:none}.tab-panel.active{display:block}
-.filters{display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
-.search-wrap{position:relative;flex:1;min-width:160px}
+
+/* ── Filters ── */
+.filters{display:flex;gap:10px;margin-bottom:16px;align-items:center}
+.search-wrap{position:relative;flex:1}
 .search-wrap input{width:100%;background:#0b1929;border:1px solid #162d47;border-radius:8px;padding:9px 12px 9px 35px;color:#e2e8f0;font-size:.88rem;outline:none}
 .search-wrap input:focus{border-color:#3b82f6}
 .search-wrap input::placeholder{color:#3d5568}
@@ -68,26 +78,52 @@ select:focus{border-color:#3b82f6}
 .loading{text-align:center;padding:60px 0;color:#3d5568}
 .spinner{width:36px;height:36px;border:3px solid #162d47;border-top-color:#3b82f6;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Desktop Leaderboard ── */
 .lb-table{background:#0b1929;border:1px solid #162d47;border-radius:12px;overflow:hidden}
 .lb-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.lb-head{display:grid;grid-template-columns:60px 1fr 160px 160px 110px 120px;padding:10px 20px;border-bottom:1px solid #162d47;min-width:700px}
+.lb-head{display:grid;grid-template-columns:70px 1fr 180px 180px 120px 130px;padding:10px 20px;border-bottom:1px solid #162d47;min-width:760px}
 .lb-hc{font-size:.65rem;color:#3d5568;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
-.leader-row{display:grid;grid-template-columns:60px 1fr 160px 160px 110px 120px;padding:13px 20px;align-items:center;border-bottom:1px solid #0d1e2f;transition:background .12s;cursor:pointer;min-width:700px}
+.leader-row{display:grid;grid-template-columns:70px 1fr 180px 180px 120px 130px;padding:14px 20px;align-items:center;border-bottom:1px solid #0d1e2f;transition:background .12s;cursor:pointer;min-width:760px}
 .leader-row:last-child{border-bottom:none}
 .leader-row:hover{background:#0e2235}
-.rank-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
-.r1{background:#b45309;color:#fef3c7;box-shadow:0 0 12px #d9770655}.r2{background:#374151;color:#d1d5db}.r3{background:#78350f;color:#fcd34d}
+.rank-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
+.r1{background:#b45309;color:#fef3c7;box-shadow:0 0 12px #d9770655}
+.r2{background:#374151;color:#d1d5db}
+.r3{background:#78350f;color:#fcd34d}
 .rn{background:transparent;border:1.5px solid #1e3a5f;color:#4b6478;font-size:.82rem}
-.leader-info{display:flex;align-items:center;gap:10px;min-width:0}
-.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#fff;flex-shrink:0}
-.leader-name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.leader-city{font-size:.7rem;color:#4b6478;margin-top:2px}
+.leader-info{display:flex;align-items:center;gap:12px;min-width:0;overflow:hidden}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;color:#fff;flex-shrink:0}
+.leader-name{font-weight:600;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.leader-city{font-size:.72rem;color:#4b6478;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pts-col{display:flex;flex-direction:column;gap:1px}
 .pts-label{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .l-comb{color:#06b6d4}.l-indiv{color:#22c55e}
-.pts-num{font-size:.95rem;font-weight:700}.n-comb{color:#06b6d4}.n-indiv{color:#22c55e}
-.total-num{font-size:1.35rem;font-weight:800;color:#e2e8f0}
-.milestone{padding:3px 8px;border-radius:20px;font-size:.66rem;font-weight:700;letter-spacing:.04em;display:inline-block}
+.pts-num{font-size:1rem;font-weight:700}.n-comb{color:#06b6d4}.n-indiv{color:#22c55e}
+.total-num{font-size:1.4rem;font-weight:800;color:#e2e8f0}
+.milestone{padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.04em;display:inline-block}
 .m-t3{background:#c2410c;color:#fff}.m-t2{background:#374151;color:#d1d5db}.m-t1{background:#78350f;color:#fcd34d}.m-none{color:#4b6478;font-size:.72rem}
+
+/* ── Mobile Leaderboard Cards ── */
+.lb-cards{display:none}
+.lb-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:background .12s}
+.lb-card:hover{background:#0e2235}
+.lb-card-top{display:flex;align-items:center;gap:12px}
+.lb-card-rank{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+.lb-card-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:#fff;flex-shrink:0}
+.lb-card-name{font-weight:700;font-size:.95rem;line-height:1.2}
+.lb-card-city{font-size:.72rem;color:#4b6478;margin-top:2px}
+.lb-card-total{margin-left:auto;text-align:right;flex-shrink:0}
+.lb-card-total-val{font-size:1.5rem;font-weight:800;color:#e2e8f0;line-height:1}
+.lb-card-total-label{font-size:.6rem;color:#3d5568;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.lb-card-bottom{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid #0d1e2f}
+.lb-card-pts{flex:1;text-align:center}
+.lb-card-pts-val{font-size:1rem;font-weight:700}
+.lb-card-pts-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
+.lb-card-sep{width:1px;height:30px;background:#162d47}
+.lb-card-milestone{margin-left:auto}
+
+/* ── Dashboard ── */
 .dash-selector-wrap{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .dash-selector-wrap label{font-size:.88rem;color:#94a3b8;font-weight:500;white-space:nowrap}
 .dash-selector-wrap select{flex:1;min-width:200px;padding:10px 14px;font-size:.92rem}
@@ -116,6 +152,8 @@ select:focus{border-color:#3b82f6}
 .cat-badge{display:inline-flex;padding:2px 8px;border-radius:10px;font-size:.67rem;font-weight:700}
 .cb-comb{background:#0c2a4a;color:#60a5fa}.cb-indiv{background:#042716;color:#4ade80}
 .pts-val-pos{font-weight:800;color:#f97316}.pts-val-zero{color:#2a3f55}
+
+/* ── Form ── */
 .form-wrap{max-width:600px;margin:0 auto}
 .form-card{background:#0b1929;border:1px solid #162d47;border-radius:16px;padding:32px}
 .form-card-title{font-size:1.35rem;font-weight:700;text-align:center;margin-bottom:6px}
@@ -145,6 +183,8 @@ textarea.form-input{resize:vertical;min-height:90px}
 .banner-ok{background:#052e1e;border:1px solid #15803d;color:#4ade80}
 .banner-err{background:#2d0e0e;border:1px solid #dc2626;color:#f87171}
 .banner-loading{background:#0c2a4a;border:1px solid #1d4ed8;color:#60a5fa}
+
+/* ── Rules ── */
 .rules-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:28px;margin-bottom:20px}
 .rules-title{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:20px}
 .info-box{background:#091829;border:1px solid #1a3050;border-radius:8px;padding:14px 16px;display:flex;gap:10px;margin-bottom:14px}
@@ -163,60 +203,112 @@ textarea.form-input{resize:vertical;min-height:90px}
 .tc-item{display:flex;align-items:flex-start;gap:7px;font-size:.78rem;color:#94a3b8;margin-bottom:5px;line-height:1.45}
 .tc-check{color:#22c55e;flex-shrink:0}.tc-star{color:#d97706;flex-shrink:0}
 .pts-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.pts-table{width:100%;border-collapse:collapse;font-size:.81rem;margin-top:16px;min-width:580px}
+.pts-table{width:100%;border-collapse:collapse;font-size:.81rem;margin-top:16px;min-width:560px}
 .pts-table th{background:#071320;padding:9px 12px;text-align:left;font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;color:#4b6478;border-bottom:1px solid #162d47}
 .pts-table td{padding:9px 12px;border-bottom:1px solid #0d1e2f;color:#c0d0e0;vertical-align:top;line-height:1.45}
 .pts-table tr:hover td{background:#091829}
 .pts-table tr:last-child td{border-bottom:none}
 .pts-val{font-weight:700;color:#f97316;font-size:.85rem}
-.mobile-scroll-hint{display:none;text-align:center;font-size:.72rem;color:#2a3f55;padding:6px 0 0;letter-spacing:.03em}
+
+/* ══════════════════════════════════
+   TABLET (≤900px)
+══════════════════════════════════ */
 @media(max-width:900px){
-  header{padding:0 1rem;height:auto;flex-direction:column;align-items:stretch;gap:0}
-  .logo{padding:12px 0 8px}
-  nav{padding:0 0 10px;gap:2px}
-  .nav-btn{padding:7px 10px;font-size:.78rem}
-  .stats-row{grid-template-columns:repeat(2,1fr);padding:16px 1rem}
-  .main{padding:0 1rem 3rem}
+  .stats-row{grid-template-columns:repeat(2,1fr);padding:16px 1.25rem}
+  .main{padding:0 1.25rem 3rem}
   .tier-cards{grid-template-columns:1fr 1fr}
   .dash-grid{grid-template-columns:1fr}
   .dash-card.full{grid-column:1}
-  .mobile-scroll-hint{display:block}
 }
-@media(max-width:600px){
-  .pw-box{padding:30px 22px}
-  .pw-title{font-size:1.1rem}
-  .ep-box{padding:26px 20px}
-  .ep-title{font-size:1.2rem}
-  .ep-btn{padding:11px 24px;font-size:.88rem}
+
+/* ══════════════════════════════════
+   MOBILE (≤640px) — full redesign
+══════════════════════════════════ */
+@media(max-width:640px){
+  /* Header — compact single row */
+  header{
+    height:auto;
+    padding:10px 14px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    position:sticky;top:0;
+  }
+  .logo{gap:10px}
+  .logo-icon{width:34px;height:34px;font-size:16px}
+  .logo-title{font-size:.95rem}
   .logo-sub{display:none}
-  .nav-btn{padding:6px 9px;font-size:.74rem}
-  .stats-row{gap:10px;padding:14px 1rem}
-  .stat-card{padding:14px;gap:10px}
-  .stat-icon{width:36px;height:36px;font-size:16px}
-  .stat-value{font-size:1.5rem}
-  .stat-label{font-size:.6rem}
-  .filters{flex-direction:column;align-items:stretch}
-  .filters select{width:100%}
-  .lb-head,.leader-row{grid-template-columns:50px 1fr 100px 90px;min-width:420px}
-  .lb-head .lb-hc:nth-child(4),.lb-head .lb-hc:nth-child(6),
-  .leader-row>div:nth-child(4),.leader-row>div:nth-child(6){display:none}
-  .dash-selector-wrap{flex-direction:column;align-items:stretch;gap:10px}
-  .dash-selector-wrap select{max-width:100%}
+  /* Nav: single scrollable row, never wraps */
+  nav{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    flex-wrap:nowrap;
+    gap:6px;
+    padding-bottom:2px;
+    scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none}
+  .nav-btn{
+    padding:7px 14px;
+    font-size:.8rem;
+    flex-shrink:0;
+    border-radius:20px;
+    border:1px solid #162d47;
+  }
+  .nav-btn.active{border-color:transparent}
+
+  /* Stats: 2-col compact */
+  .stats-row{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    padding:14px 14px;
+  }
+  .stat-card{padding:12px 14px;gap:10px;border-radius:10px}
+  .stat-icon{width:34px;height:34px;font-size:15px;border-radius:8px}
+  .stat-value{font-size:1.6rem}
+  .stat-label{font-size:.58rem}
+
+  /* Main padding */
+  .main{padding:0 14px 3rem}
+
+  /* Filters: stack */
+  .filters{flex-direction:column;gap:8px}
+  .search-wrap{width:100%}
+  .filters select{width:100%;padding:10px 12px}
+
+  /* Hide desktop table, show cards */
+  .lb-table{display:none}
+  .lb-cards{display:block}
+
+  /* Dashboard */
+  .dash-selector-wrap{flex-direction:column;align-items:stretch;gap:10px;padding:14px}
+  .dash-selector-wrap select{max-width:100%;min-width:unset}
   .dash-private-note{display:none}
-  .pts-summary{gap:7px}
-  .pts-sum-val{font-size:1.2rem}
+  .dash-grid{grid-template-columns:1fr;gap:12px}
+  .dash-card{padding:16px}
+  .pts-summary{gap:8px}
+  .pts-sum-item{padding:10px 8px}
+  .pts-sum-val{font-size:1.25rem}
+  .pts-sum-label{font-size:.58rem}
   .breakdown-table th:nth-child(2),.breakdown-table td:nth-child(2){display:none}
-  .form-card{padding:22px 18px}
+
+  /* Form */
+  .form-card{padding:20px 16px;border-radius:12px}
   .form-card-title{font-size:1.1rem}
-  .divider{margin:0 -18px 20px}
+  .divider{margin:0 -16px 20px}
   .form-row{grid-template-columns:1fr}
-  .tier-cards{grid-template-columns:1fr}
-  .rules-card{padding:20px 16px}
-}
-@media(max-width:380px){
-  .nav-btn{padding:5px 7px;font-size:.7rem}
-  .stats-row{gap:8px;padding:12px .75rem}
-  .main{padding:0 .75rem 3rem}
+
+  /* Rules */
+  .rules-card{padding:18px 14px;border-radius:10px}
+  .tier-cards{grid-template-columns:1fr;gap:10px}
+
+  /* Popup */
+  .ep-box{padding:24px 18px}
+  .ep-title{font-size:1.15rem}
+  .ep-btn{padding:11px 20px;font-size:.88rem}
+
+  /* Password box */
+  .pw-box{padding:28px 20px}
 }
 </style>
 </head>
@@ -229,20 +321,14 @@ textarea.form-input{resize:vertical;min-height:90px}
     <div class="pw-sub">BrowserStack Community Portal &middot; Enter your password to continue</div>
     <div class="pw-field">
       <input type="password" class="pw-input" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
-      <button class="pw-eye" id="pw-eye-btn" onclick="togglePwVisibility()" type="button" title="Show/hide password">
-        <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-        </svg>
-        <svg id="eye-off-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>
-        </svg>
+      <button class="pw-eye" onclick="togglePwVisibility()" type="button" title="Show/hide password">
+        <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg id="eye-off-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
       </button>
     </div>
     <button class="pw-btn" id="pw-btn" onclick="checkPw()">
       <div class="pw-spinner" id="pw-spinner"></div>
-      <span class="pw-btn-text" id="pw-btn-text">Access Portal</span>
+      <span id="pw-btn-text">Access Portal</span>
     </button>
     <div class="pw-err" id="pw-err">&#10060; Incorrect password. Please try again.</div>
   </div>
@@ -254,7 +340,7 @@ textarea.form-input{resize:vertical;min-height:90px}
     <div class="ep-badge">Upcoming Event</div>
     <div class="ep-title">Chapter Leader Connect</div>
     <div class="ep-date">30th July 2025</div>
-    <div class="ep-sub">We're bringing all Chapter Leaders together for our quarterly connect! Mark your calendars and make sure you attend &mdash; more details will be shared soon.</div>
+    <div class="ep-sub">We're bringing all Chapter Leaders together for our quarterly connect! Mark your calendars &mdash; more details will be shared soon.</div>
     <button class="ep-btn" onclick="closePopup()">Got it, see you there! &#127881;</button>
     <button class="ep-skip" onclick="closePopup()">Remind me later</button>
   </div>
@@ -273,32 +359,45 @@ textarea.form-input{resize:vertical;min-height:90px}
     <button class="nav-btn active"   onclick="switchTab('standings',this)">&#127885; Standings</button>
     <button class="nav-btn dash-btn" onclick="switchTab('dashboard',this)">&#128100; Dashboard</button>
     <button class="nav-btn"          onclick="switchTab('form',this)">&#8853; Submit Form</button>
-    <button class="nav-btn"          onclick="switchTab('rules',this)">&#128203; Rules</button>
+    <button class="nav-btn"          onclick="switchTab('rules',this)">&#128203; Rules &amp; Tiers</button>
   </nav>
 </header>
+
 <div class="stats-row">
   <div class="stat-card"><div class="stat-icon si-blue">&#128101;</div><div><div class="stat-label">Active Leaders</div><div class="stat-value" id="s-leaders">&mdash;</div></div></div>
   <div class="stat-card"><div class="stat-icon si-teal">&#128506;</div><div><div class="stat-label">Meetups Hosted</div><div class="stat-value" id="s-meetups">&mdash;</div></div></div>
   <div class="stat-card"><div class="stat-icon si-orange">&#127942;</div><div><div class="stat-label">Tier 3</div><div class="stat-value" id="s-tier3">&mdash;</div></div></div>
   <div class="stat-card"><div class="stat-icon si-purple">&#9889;</div><div><div class="stat-label">Bkpt Regs</div><div class="stat-value" id="s-bkpt">&mdash;</div></div></div>
 </div>
+
 <div class="main">
 
+<!-- STANDINGS -->
 <div class="tab-panel active" id="tab-standings">
   <div class="filters">
     <div class="search-wrap"><span class="s-icon">&#128269;</span><input type="text" id="search" placeholder="Search leader or chapter&hellip;" oninput="filterTable()"></div>
     <select id="filter-tier" onchange="filterTable()"><option value="all">All Tiers</option><option value="TIER 3">Tier 3 (2000+ pts)</option><option value="TIER 2">Tier 2 (1550+ pts)</option><option value="TIER 1">Tier 1 (650+ pts)</option><option value="NONE">No Tier Yet</option></select>
     <select id="filter-chapter" onchange="filterTable()"><option value="all">All Chapters</option></select>
   </div>
+  <!-- Desktop table -->
   <div class="lb-table">
     <div class="lb-scroll">
-      <div class="lb-head"><div class="lb-hc">Rank</div><div class="lb-hc">Chapter Leader</div><div class="lb-hc">Combined Pts</div><div class="lb-hc">Individual Pts</div><div class="lb-hc">Total Pts</div><div class="lb-hc">Milestone</div></div>
-      <div id="lb-body"><div class="loading"><div class="spinner"></div>Loading leaderboard data&hellip;</div></div>
+      <div class="lb-head">
+        <div class="lb-hc">Rank</div>
+        <div class="lb-hc">Chapter Leader</div>
+        <div class="lb-hc">Combined Pts</div>
+        <div class="lb-hc">Individual Pts</div>
+        <div class="lb-hc">Total Pts</div>
+        <div class="lb-hc">Milestone</div>
+      </div>
+      <div id="lb-body"><div class="loading"><div class="spinner"></div>Loading&hellip;</div></div>
     </div>
   </div>
-  <div class="mobile-scroll-hint">&#8592; Scroll to see all columns</div>
+  <!-- Mobile cards -->
+  <div class="lb-cards" id="lb-cards"><div class="loading"><div class="spinner"></div>Loading&hellip;</div></div>
 </div>
 
+<!-- DASHBOARD -->
 <div class="tab-panel" id="tab-dashboard">
   <div class="dash-selector-wrap">
     <label for="my-leader-sel">&#128100; Who are you?</label>
@@ -307,7 +406,11 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
   <div id="dash-content" style="display:none">
     <div class="dash-grid">
-      <div class="dash-card"><div class="dash-card-title">&#128279; My UTM Links</div><div id="utm-links-container"></div><div class="utm-note">Use these links when promoting BrowserStack on social media or inviting members.</div></div>
+      <div class="dash-card">
+        <div class="dash-card-title">&#128279; My UTM Links</div>
+        <div id="utm-links-container"></div>
+        <div class="utm-note">Use these links when promoting BrowserStack on social media or inviting members.</div>
+      </div>
       <div class="dash-card">
         <div class="dash-card-title">&#128202; Points Summary</div>
         <div class="pts-summary">
@@ -321,7 +424,7 @@ textarea.form-input{resize:vertical;min-height:90px}
     <div class="dash-card full">
       <div class="dash-card-title">&#128203; Full Points Breakdown</div>
       <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-        <table class="breakdown-table" style="min-width:340px"><thead><tr><th>Activity</th><th>Category</th><th>Points</th></tr></thead><tbody id="breakdown-body"></tbody></table>
+        <table class="breakdown-table" style="min-width:320px"><thead><tr><th>Activity</th><th>Category</th><th>Points</th></tr></thead><tbody id="breakdown-body"></tbody></table>
       </div>
     </div>
     <div class="dash-card full" style="margin-top:16px">
@@ -354,6 +457,7 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
+<!-- FORM -->
 <div class="tab-panel" id="tab-form">
   <div class="form-wrap"><div class="form-card">
     <h2 class="form-card-title">Submit CL Contributions</h2>
@@ -389,6 +493,7 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div></div>
 </div>
 
+<!-- RULES -->
 <div class="tab-panel" id="tab-rules">
   <div class="rules-card">
     <div class="rules-title">&#128737; Collaborative Points Philosophy</div>
@@ -400,9 +505,9 @@ textarea.form-input{resize:vertical;min-height:90px}
     <div class="rules-title">&#128218; Milestone Tiering Matrix</div>
     <div class="info-box ib-warn"><span style="color:#fb923c;flex-shrink:0;margin-top:2px">&#9888;</span><div class="ib-content"><h4>Mandatory Breakpoint Registrations</h4><p>To qualify for any milestone tier, completing your Breakpoint registrations is essential.</p></div></div>
     <div class="tier-cards">
-      <div class="tier-card"><div class="tc-header"><div class="tc-title tc-t1">Tier 1 Milestone</div><div class="tc-pts">650 Pts Needed</div></div><div class="tc-section">Mandatory</div><div class="tc-item"><span class="tc-check">&#10003;</span>Primary Meetup Hosting (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Finding a Venue Partner (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Bringing in Guest Speaker (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Feedback Collection 30%+ (50)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Attendance 50%&ndash;75% (50)</div><div class="tc-section">Individual Tasks</div><div class="tc-item"><span class="tc-star">&#10022;</span>Breakpoint: 30 Registrations (300 Pts)</div></div>
-      <div class="tier-card"><div class="tc-header"><div class="tc-title tc-t2">Tier 2 Milestone</div><div class="tc-pts">1,550 Pts Needed</div></div><div class="tc-section">Mandatory</div><div class="tc-item"><span class="tc-check">&#10003;</span>Tier 1 Checklist Met</div><div class="tc-item"><span class="tc-check">&#10003;</span>Attendance &gt;75% conversion (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Discord Conversion (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Sharing meetup highlights (50)</div><div class="tc-section">Individual Tasks</div><div class="tc-item"><span class="tc-star">&#10022;</span>Breakpoint: 100 Registrations (1,000 Pts)</div><div class="tc-item"><span class="tc-star">&#10022;</span>Being an alpha user (50)</div></div>
-      <div class="tier-card"><div class="tc-header"><div class="tc-title tc-t3">Tier 3 Milestone</div><div class="tc-pts">2,000 Pts Min</div></div><div class="tc-section">Mandatory</div><div class="tc-item"><span class="tc-check">&#10003;</span>Tier 2 Checklist Met</div><div class="tc-item"><span class="tc-check">&#10003;</span>Hosting 1 extra meetup (150)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Referring another chapter leader (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Collaborating with local communities (100)</div><div class="tc-section">Individual Tasks</div><div class="tc-item"><span class="tc-star">&#10022;</span>Breakpoint: 200 Registrations (2,000 Pts)</div><div class="tc-item"><span class="tc-star">&#10022;</span>Getting alpha user referrals (30)</div></div>
+      <div class="tier-card"><div class="tc-header"><div class="tc-title tc-t1">Tier 1</div><div class="tc-pts">650 Pts</div></div><div class="tc-section">Mandatory</div><div class="tc-item"><span class="tc-check">&#10003;</span>Primary Meetup Hosting (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Finding a Venue Partner (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Bringing in Guest Speaker (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Feedback Collection 30%+ (50)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Attendance 50%&ndash;75% (50)</div><div class="tc-section">Individual</div><div class="tc-item"><span class="tc-star">&#10022;</span>Breakpoint: 30 Regs (300 Pts)</div></div>
+      <div class="tier-card"><div class="tc-header"><div class="tc-title tc-t2">Tier 2</div><div class="tc-pts">1,550 Pts</div></div><div class="tc-section">Mandatory</div><div class="tc-item"><span class="tc-check">&#10003;</span>Tier 1 Checklist Met</div><div class="tc-item"><span class="tc-check">&#10003;</span>Attendance &gt;75% (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Discord Conversion (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Meetup Highlights (50)</div><div class="tc-section">Individual</div><div class="tc-item"><span class="tc-star">&#10022;</span>Breakpoint: 100 Regs (1,000 Pts)</div><div class="tc-item"><span class="tc-star">&#10022;</span>Alpha user (50)</div></div>
+      <div class="tier-card"><div class="tc-header"><div class="tc-title tc-t3">Tier 3</div><div class="tc-pts">2,000 Pts</div></div><div class="tc-section">Mandatory</div><div class="tc-item"><span class="tc-check">&#10003;</span>Tier 2 Checklist Met</div><div class="tc-item"><span class="tc-check">&#10003;</span>Extra meetup (150)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Refer chapter leader (100)</div><div class="tc-item"><span class="tc-check">&#10003;</span>Community collab (100)</div><div class="tc-section">Individual</div><div class="tc-item"><span class="tc-star">&#10022;</span>Breakpoint: 200 Regs (2,000 Pts)</div><div class="tc-item"><span class="tc-star">&#10022;</span>Alpha referrals (30)</div></div>
     </div>
   </div>
   <div class="rules-card">
@@ -422,8 +527,8 @@ textarea.form-input{resize:vertical;min-height:90px}
       <tr><td>Feedback Collection</td><td><span class="cat-badge cb-comb">Combined</span></td><td>30%+ feedback responses</td><td>Feedback Form</td><td class="pts-val">50</td></tr>
       <tr><td>Alpha User (Self)</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>Alpha user for new features</td><td>Activity Form</td><td class="pts-val">50</td></tr>
       <tr><td>Paid Venue</td><td><span class="cat-badge cb-comb">Combined</span></td><td>Venue found by CL</td><td>Activity Form</td><td class="pts-val">50</td></tr>
-      <tr><td>Alpha User Referral</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>Onboarding alpha users (post-feedback)</td><td>Activity Form</td><td class="pts-val">30</td></tr>
-      <tr><td>AMA or Product Promotion</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>LinkedIn/Discord posts about AMAs</td><td>Activity Form</td><td class="pts-val">20</td></tr>
+      <tr><td>Alpha User Referral</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>Onboarding alpha users</td><td>Activity Form</td><td class="pts-val">30</td></tr>
+      <tr><td>AMA or Product Promo</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>LinkedIn/Discord posts about AMAs</td><td>Activity Form</td><td class="pts-val">20</td></tr>
       <tr><td>Breakpoint Promo</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>Promoting Breakpoint event</td><td>UTM Links</td><td class="pts-val">10/reg</td></tr>
       <tr><td>Discord Join (Unique)</td><td><span class="cat-badge cb-indiv">Individual</span></td><td>New members via unique CL links</td><td>Discord UTM</td><td class="pts-val">2/member</td></tr>
       <tr><td>Discord Join (Chapter)</td><td><span class="cat-badge cb-comb">Combined</span></td><td>Members via generic QR code</td><td>Dev Rel Team</td><td class="pts-val">2/member</td></tr>
@@ -433,38 +538,30 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
-</div>
-</div>
+</div><!-- .main -->
+</div><!-- #app -->
 
 <script>
-// Password lives in Google Apps Script — NOT here.
-// This token only protects the GAS endpoint from random public access.
 var GAS_URL      = 'https://script.google.com/macros/s/AKfycbx8h9ZEsT4VZh3kvh-DdM0AF5XRBxYbp3lkUHGE_kbKnDsnE9HlPGI_Z2qcNXssFhoS/exec';
 var SECRET_TOKEN = 'BSCLSecure2024xT9k';
 
 function togglePwVisibility(){
   var inp=document.getElementById('pw-input');
-  var eyeOn=document.getElementById('eye-icon'),eyeOff=document.getElementById('eye-off-icon');
-  if(inp.type==='password'){inp.type='text';eyeOn.style.display='none';eyeOff.style.display='block';}
-  else{inp.type='password';eyeOn.style.display='block';eyeOff.style.display='none';}
+  var on=document.getElementById('eye-icon'),off=document.getElementById('eye-off-icon');
+  if(inp.type==='password'){inp.type='text';on.style.display='none';off.style.display='block';}
+  else{inp.type='password';on.style.display='block';off.style.display='none';}
 }
-
-function setPwLoading(loading){
-  var btn=document.getElementById('pw-btn');
-  var inp=document.getElementById('pw-input');
-  var spinner=document.getElementById('pw-spinner');
-  btn.disabled=loading;
-  inp.disabled=loading;
-  spinner.style.display=loading?'block':'none';
-  document.getElementById('pw-btn-text').textContent=loading?'Verifying…':'Access Portal';
+function setPwLoading(v){
+  var btn=document.getElementById('pw-btn'),inp=document.getElementById('pw-input');
+  btn.disabled=v;inp.disabled=v;
+  document.getElementById('pw-spinner').style.display=v?'block':'none';
+  document.getElementById('pw-btn-text').textContent=v?'Verifying…':'Access Portal';
 }
-
 function checkPw(){
   var val=document.getElementById('pw-input').value.trim();
   if(!val)return;
   document.getElementById('pw-err').classList.remove('show');
   setPwLoading(true);
-  // Send password to GAS for verification — password never stored in this file
   gasCall({action:'checkPassword',pw:val},function(res){
     setPwLoading(false);
     if(res&&res.success){
@@ -474,7 +571,9 @@ function checkPw(){
       if(!localStorage.getItem('bs_popup_seen')) document.getElementById('event-popup').classList.add('show');
       loadLeaderboardData();
     }else{
-      document.getElementById('pw-err').classList.add('show');
+      var err=document.getElementById('pw-err');
+      err.textContent='❌ Incorrect password. Please try again.';
+      err.classList.add('show');
       document.getElementById('pw-input').value='';
       document.getElementById('pw-input').type='password';
       document.getElementById('eye-icon').style.display='block';
@@ -483,13 +582,12 @@ function checkPw(){
     }
   },function(){
     setPwLoading(false);
-    document.getElementById('pw-err').textContent='&#10060; Connection error. Please try again.';
-    document.getElementById('pw-err').classList.add('show');
+    var err=document.getElementById('pw-err');
+    err.textContent='❌ Connection error. Please try again.';
+    err.classList.add('show');
   });
 }
-
 function closePopup(){localStorage.setItem('bs_popup_seen','1');document.getElementById('event-popup').classList.remove('show');}
-
 if(localStorage.getItem('bs_auth')==='1'){
   document.getElementById('pw-gate').style.display='none';
   document.getElementById('app').style.display='block';
@@ -525,14 +623,29 @@ function gasCall(params,onSuccess,onError){
 }
 
 function loadLeaderboardData(){
-  document.getElementById('lb-body').innerHTML='<div class="loading"><div class="spinner"></div>Loading from Google Sheets&hellip;</div>';
-  gasCall({},processSheetData,function(){document.getElementById('lb-body').innerHTML='<div class="loading">Failed to load. Please refresh.</div>';});
+  var loadHtml='<div class="loading"><div class="spinner"></div>Loading from Google Sheets…</div>';
+  document.getElementById('lb-body').innerHTML=loadHtml;
+  document.getElementById('lb-cards').innerHTML=loadHtml;
+  gasCall({},processSheetData,function(){
+    var err='<div class="loading">Failed to load. Please refresh.</div>';
+    document.getElementById('lb-body').innerHTML=err;
+    document.getElementById('lb-cards').innerHTML=err;
+  });
 }
 
 function processSheetData(data){
-  if(!data||data.error){document.getElementById('lb-body').innerHTML='<div class="loading">'+(data&&data.error?data.error:'Error loading data')+'</div>';return;}
+  if(!data||data.error){
+    var msg='<div class="loading">'+(data&&data.error?data.error:'Error')+'</div>';
+    document.getElementById('lb-body').innerHTML=msg;
+    document.getElementById('lb-cards').innerHTML=msg;
+    return;
+  }
   var headers=data.headers,rows=data.rows;
-  if(!headers||!rows||!rows.length){document.getElementById('lb-body').innerHTML='<div class="loading">No data found.</div>';return;}
+  if(!headers||!rows||!rows.length){
+    document.getElementById('lb-body').innerHTML='<div class="loading">No data found.</div>';
+    document.getElementById('lb-cards').innerHTML='<div class="loading">No data found.</div>';
+    return;
+  }
   utmLinksMap=data.utmLinks||{};
   var h=headers.map(function(s){return String(s).toLowerCase().trim();});
   var nameCol=h.indexOf('name'),cityCol=h.indexOf('city'),totalCol=h.indexOf('total');
@@ -543,7 +656,9 @@ function processSheetData(data){
     colMeta.push({name:hdr,idx:i,isIndividual:IND_KW.some(function(k){return lc.indexOf(k)>=0;})});
   });
   leaderDataMap={};
-  allLeaders=rows.filter(function(r){return r[nameCol]&&String(r[nameCol]).trim()&&String(r[nameCol]).trim().toLowerCase()!='na';}).map(function(row){
+  allLeaders=rows.filter(function(r){
+    return r[nameCol]&&String(r[nameCol]).trim()&&String(r[nameCol]).trim().toLowerCase()!='na';
+  }).map(function(row){
     var name=String(row[nameCol]||'').trim(),city=String(row[cityCol]||'').trim(),total=Number(row[totalCol])||0;
     var combined=colMeta.filter(function(c){return !c.isIndividual;}).reduce(function(s,c){return s+(Number(row[c.idx])||0);},0);
     var individual=Math.max(0,total-combined);
@@ -554,6 +669,7 @@ function processSheetData(data){
     leaderDataMap[name.toLowerCase()]={name:name,city:city,combined:combined,individual:individual,total:total,milestone:milestone,breakdown:breakdown};
     return{name:name,city:city,combined:combined,individual:individual,total:total,milestone:milestone,bkPts:bkPts,hasMeetup:hasMeetup};
   }).sort(function(a,b){return b.total-a.total;});
+
   var cities=[];
   allLeaders.forEach(function(l){if(l.city&&cities.indexOf(l.city)<0)cities.push(l.city);});
   cities.sort();
@@ -572,19 +688,42 @@ function processSheetData(data){
 }
 
 function renderTable(leaders){
-  if(!leaders.length){document.getElementById('lb-body').innerHTML='<div class="loading">No results match your filters.</div>';return;}
+  var empty='<div class="loading">No results match your filters.</div>';
+  if(!leaders.length){document.getElementById('lb-body').innerHTML=empty;document.getElementById('lb-cards').innerHTML=empty;return;}
+  // Desktop rows
   document.getElementById('lb-body').innerHTML=leaders.map(function(l,i){
     var rank=i+1,rC=rank===1?'r1':rank===2?'r2':rank===3?'r3':'rn';
     var mC=l.milestone==='TIER 3'?'m-t3':l.milestone==='TIER 2'?'m-t2':l.milestone==='TIER 1'?'m-t1':'m-none';
-    var safeName=l.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return '<div class="leader-row" onclick="jumpToDash(\''+safeName+'\')">'
+    var sn=l.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return '<div class="leader-row" onclick="jumpToDash(\''+sn+'\')">'
       +'<div><span class="rank-badge '+rC+'">'+rank+'</span></div>'
       +'<div class="leader-info"><div class="avatar" style="background:'+avColor(l.name)+'">'+avInitials(l.name)+'</div>'
-      +'<div><div class="leader-name">'+esc(l.name)+'</div><div class="leader-city">&#128205; '+esc(l.city)+'</div></div></div>'
-      +'<div><div class="pts-label l-comb">COMBINED</div><div class="pts-num n-comb">'+l.combined.toLocaleString()+'</div></div>'
-      +'<div><div class="pts-label l-indiv">INDIVIDUAL</div><div class="pts-num n-indiv">'+l.individual.toLocaleString()+'</div></div>'
+      +'<div style="min-width:0"><div class="leader-name">'+esc(l.name)+'</div><div class="leader-city">&#128205; '+esc(l.city)+'</div></div></div>'
+      +'<div class="pts-col"><div class="pts-label l-comb">COMBINED</div><div class="pts-num n-comb">'+l.combined.toLocaleString()+'</div></div>'
+      +'<div class="pts-col"><div class="pts-label l-indiv">INDIVIDUAL</div><div class="pts-num n-indiv">'+l.individual.toLocaleString()+'</div></div>'
       +'<div class="total-num">'+l.total.toLocaleString()+'</div>'
       +'<div><span class="milestone '+mC+'">'+(l.milestone==='NONE'?'None':l.milestone)+'</span></div>'
+      +'</div>';
+  }).join('');
+  // Mobile cards
+  document.getElementById('lb-cards').innerHTML=leaders.map(function(l,i){
+    var rank=i+1,rC=rank===1?'r1':rank===2?'r2':rank===3?'r3':'rn';
+    var mC=l.milestone==='TIER 3'?'m-t3':l.milestone==='TIER 2'?'m-t2':l.milestone==='TIER 1'?'m-t1':'m-none';
+    var sn=l.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return '<div class="lb-card" onclick="jumpToDash(\''+sn+'\')">'
+      +'<div class="lb-card-top">'
+      +'<span class="lb-card-rank rank-badge '+rC+'">'+rank+'</span>'
+      +'<div class="lb-card-avatar" style="background:'+avColor(l.name)+'">'+avInitials(l.name)+'</div>'
+      +'<div style="min-width:0;flex:1"><div class="lb-card-name">'+esc(l.name)+'</div><div class="lb-card-city">&#128205; '+esc(l.city)+'</div></div>'
+      +'<div class="lb-card-total"><div class="lb-card-total-val">'+l.total.toLocaleString()+'</div><div class="lb-card-total-label">Total pts</div></div>'
+      +'</div>'
+      +'<div class="lb-card-bottom">'
+      +'<div class="lb-card-pts"><div class="lb-card-pts-val n-comb">'+l.combined.toLocaleString()+'</div><div class="lb-card-pts-label l-comb">Combined</div></div>'
+      +'<div class="lb-card-sep"></div>'
+      +'<div class="lb-card-pts"><div class="lb-card-pts-val n-indiv">'+l.individual.toLocaleString()+'</div><div class="lb-card-pts-label l-indiv">Individual</div></div>'
+      +'<div class="lb-card-sep"></div>'
+      +'<div class="lb-card-milestone"><span class="milestone '+mC+'">'+(l.milestone==='NONE'?'No Tier':l.milestone)+'</span></div>'
+      +'</div>'
       +'</div>';
   }).join('');
 }
@@ -636,8 +775,7 @@ function renderUTMLinks(d){
 }
 
 function copyUTM(){
-  var val=document.getElementById('utm-inp-0').value;
-  navigator.clipboard.writeText(val).then(function(){
+  navigator.clipboard.writeText(document.getElementById('utm-inp-0').value).then(function(){
     var btn=document.getElementById('utm-cp-0');btn.textContent='Copied!';btn.classList.add('copied');
     setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied');},2000);
   });
