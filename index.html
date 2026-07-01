@@ -8,8 +8,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#071320;color:#e2e8f0;min-height:100vh}
 button,select,input,textarea{font-family:inherit}
-
-/* ── Password Gate ── */
 #pw-gate{position:fixed;inset:0;background:#071320;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
 .pw-box{background:#0b1929;border:1px solid #162d47;border-radius:16px;padding:40px 44px;width:100%;max-width:400px;text-align:center}
 .pw-logo{width:52px;height:52px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 18px}
@@ -18,14 +16,17 @@ button,select,input,textarea{font-family:inherit}
 .pw-field{position:relative;margin-bottom:12px}
 .pw-input{width:100%;background:#071320;border:1px solid #162d47;border-radius:8px;padding:12px 42px 12px 16px;color:#e2e8f0;font-size:.95rem;outline:none;text-align:center;letter-spacing:.05em;transition:border-color .15s}
 .pw-input:focus{border-color:#3b82f6}
+.pw-input:disabled{opacity:.5;cursor:not-allowed}
 .pw-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#4b6478;cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;transition:color .15s}
 .pw-eye:hover{color:#94a3b8}
-.pw-btn{width:100%;background:#1d4ed8;border:none;color:#fff;padding:12px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer}
-.pw-btn:hover{background:#2563eb}
+.pw-btn{width:100%;background:#1d4ed8;border:none;color:#fff;padding:12px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.pw-btn:hover:not(:disabled){background:#2563eb}
+.pw-btn:disabled{opacity:.6;cursor:not-allowed}
+.pw-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.pw-btn.loading .pw-spinner{display:block}
+.pw-btn.loading .pw-btn-text{opacity:.7}
 .pw-err{color:#f87171;font-size:.82rem;margin-top:10px;display:none}
 .pw-err.show{display:block}
-
-/* ── Event Popup ── */
 #event-popup{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:8888;display:none;align-items:center;justify-content:center;padding:20px}
 #event-popup.show{display:flex}
 .ep-box{background:#0b1929;border:1px solid #f97316;border-radius:16px;padding:36px 40px;width:100%;max-width:460px;text-align:center}
@@ -38,8 +39,6 @@ button,select,input,textarea{font-family:inherit}
 .ep-btn:hover{background:#ea580c}
 .ep-skip{display:block;margin-top:14px;color:#4b6478;font-size:.78rem;cursor:pointer;background:none;border:none;width:100%}
 .ep-skip:hover{color:#94a3b8}
-
-/* ── Header ── */
 header{background:#0b1929;border-bottom:1px solid #162d47;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100;gap:12px}
 .logo{display:flex;align-items:center;gap:14px;flex-shrink:0}
 .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
@@ -50,20 +49,14 @@ nav{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end}
 .nav-btn:hover{background:#122030;color:#e2e8f0}
 .nav-btn.active{background:#1d4ed8;color:#fff}
 .nav-btn.dash-btn.active{background:#7c3aed}
-
-/* ── Stats ── */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:20px 2rem}
 .stat-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:14px}
 .stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .si-blue{background:#0e2845}.si-teal{background:#09302a}.si-orange{background:#2d1400}.si-purple{background:#1c0f3f}
 .stat-label{font-size:.65rem;color:#3d5568;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
 .stat-value{font-size:2rem;font-weight:800;color:#f97316;line-height:1.1}
-
-/* ── Main / Tabs ── */
 .main{padding:0 2rem 3rem}
 .tab-panel{display:none}.tab-panel.active{display:block}
-
-/* ── Leaderboard ── */
 .filters{display:flex;gap:10px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
 .search-wrap{position:relative;flex:1;min-width:160px}
 .search-wrap input{width:100%;background:#0b1929;border:1px solid #162d47;border-radius:8px;padding:9px 12px 9px 35px;color:#e2e8f0;font-size:.88rem;outline:none}
@@ -95,8 +88,6 @@ select:focus{border-color:#3b82f6}
 .total-num{font-size:1.35rem;font-weight:800;color:#e2e8f0}
 .milestone{padding:3px 8px;border-radius:20px;font-size:.66rem;font-weight:700;letter-spacing:.04em;display:inline-block}
 .m-t3{background:#c2410c;color:#fff}.m-t2{background:#374151;color:#d1d5db}.m-t1{background:#78350f;color:#fcd34d}.m-none{color:#4b6478;font-size:.72rem}
-
-/* ── Dashboard ── */
 .dash-selector-wrap{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .dash-selector-wrap label{font-size:.88rem;color:#94a3b8;font-weight:500;white-space:nowrap}
 .dash-selector-wrap select{flex:1;min-width:200px;padding:10px 14px;font-size:.92rem}
@@ -125,8 +116,6 @@ select:focus{border-color:#3b82f6}
 .cat-badge{display:inline-flex;padding:2px 8px;border-radius:10px;font-size:.67rem;font-weight:700}
 .cb-comb{background:#0c2a4a;color:#60a5fa}.cb-indiv{background:#042716;color:#4ade80}
 .pts-val-pos{font-weight:800;color:#f97316}.pts-val-zero{color:#2a3f55}
-
-/* ── Form ── */
 .form-wrap{max-width:600px;margin:0 auto}
 .form-card{background:#0b1929;border:1px solid #162d47;border-radius:16px;padding:32px}
 .form-card-title{font-size:1.35rem;font-weight:700;text-align:center;margin-bottom:6px}
@@ -156,8 +145,6 @@ textarea.form-input{resize:vertical;min-height:90px}
 .banner-ok{background:#052e1e;border:1px solid #15803d;color:#4ade80}
 .banner-err{background:#2d0e0e;border:1px solid #dc2626;color:#f87171}
 .banner-loading{background:#0c2a4a;border:1px solid #1d4ed8;color:#60a5fa}
-
-/* ── Rules ── */
 .rules-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:28px;margin-bottom:20px}
 .rules-title{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:20px}
 .info-box{background:#091829;border:1px solid #1a3050;border-radius:8px;padding:14px 16px;display:flex;gap:10px;margin-bottom:14px}
@@ -182,13 +169,7 @@ textarea.form-input{resize:vertical;min-height:90px}
 .pts-table tr:hover td{background:#091829}
 .pts-table tr:last-child td{border-bottom:none}
 .pts-val{font-weight:700;color:#f97316;font-size:.85rem}
-
-/* ── Mobile bottom nav hint ── */
 .mobile-scroll-hint{display:none;text-align:center;font-size:.72rem;color:#2a3f55;padding:6px 0 0;letter-spacing:.03em}
-
-/* ══════════════════════════════════
-   RESPONSIVE — Tablet (≤900px)
-══════════════════════════════════ */
 @media(max-width:900px){
   header{padding:0 1rem;height:auto;flex-direction:column;align-items:stretch;gap:0}
   .logo{padding:12px 0 8px}
@@ -201,28 +182,20 @@ textarea.form-input{resize:vertical;min-height:90px}
   .dash-card.full{grid-column:1}
   .mobile-scroll-hint{display:block}
 }
-
-/* ══════════════════════════════════
-   RESPONSIVE — Mobile (≤600px)
-══════════════════════════════════ */
 @media(max-width:600px){
   .pw-box{padding:30px 22px}
   .pw-title{font-size:1.1rem}
   .ep-box{padding:26px 20px}
   .ep-title{font-size:1.2rem}
   .ep-btn{padding:11px 24px;font-size:.88rem}
-  header{padding:0 1rem}
   .logo-sub{display:none}
-  nav{gap:2px}
   .nav-btn{padding:6px 9px;font-size:.74rem}
-  .stats-row{grid-template-columns:repeat(2,1fr);gap:10px;padding:14px 1rem}
+  .stats-row{gap:10px;padding:14px 1rem}
   .stat-card{padding:14px;gap:10px}
   .stat-icon{width:36px;height:36px;font-size:16px}
   .stat-value{font-size:1.5rem}
   .stat-label{font-size:.6rem}
-  .main{padding:0 1rem 3rem}
   .filters{flex-direction:column;align-items:stretch}
-  .search-wrap{min-width:unset}
   .filters select{width:100%}
   .lb-head,.leader-row{grid-template-columns:50px 1fr 100px 90px;min-width:420px}
   .lb-head .lb-hc:nth-child(4),.lb-head .lb-hc:nth-child(6),
@@ -230,7 +203,7 @@ textarea.form-input{resize:vertical;min-height:90px}
   .dash-selector-wrap{flex-direction:column;align-items:stretch;gap:10px}
   .dash-selector-wrap select{max-width:100%}
   .dash-private-note{display:none}
-  .pts-summary{grid-template-columns:repeat(3,1fr);gap:7px}
+  .pts-summary{gap:7px}
   .pts-sum-val{font-size:1.2rem}
   .breakdown-table th:nth-child(2),.breakdown-table td:nth-child(2){display:none}
   .form-card{padding:22px 18px}
@@ -240,13 +213,9 @@ textarea.form-input{resize:vertical;min-height:90px}
   .tier-cards{grid-template-columns:1fr}
   .rules-card{padding:20px 16px}
 }
-
-/* ══════════════════════════════════
-   RESPONSIVE — Very small (≤380px)
-══════════════════════════════════ */
 @media(max-width:380px){
   .nav-btn{padding:5px 7px;font-size:.7rem}
-  .stats-row{grid-template-columns:1fr 1fr;gap:8px;padding:12px .75rem}
+  .stats-row{gap:8px;padding:12px .75rem}
   .main{padding:0 .75rem 3rem}
 }
 </style>
@@ -271,7 +240,10 @@ textarea.form-input{resize:vertical;min-height:90px}
         </svg>
       </button>
     </div>
-    <button class="pw-btn" onclick="checkPw()">Access Portal</button>
+    <button class="pw-btn" id="pw-btn" onclick="checkPw()">
+      <div class="pw-spinner" id="pw-spinner"></div>
+      <span class="pw-btn-text" id="pw-btn-text">Access Portal</span>
+    </button>
     <div class="pw-err" id="pw-err">&#10060; Incorrect password. Please try again.</div>
   </div>
 </div>
@@ -304,17 +276,14 @@ textarea.form-input{resize:vertical;min-height:90px}
     <button class="nav-btn"          onclick="switchTab('rules',this)">&#128203; Rules</button>
   </nav>
 </header>
-
 <div class="stats-row">
   <div class="stat-card"><div class="stat-icon si-blue">&#128101;</div><div><div class="stat-label">Active Leaders</div><div class="stat-value" id="s-leaders">&mdash;</div></div></div>
   <div class="stat-card"><div class="stat-icon si-teal">&#128506;</div><div><div class="stat-label">Meetups Hosted</div><div class="stat-value" id="s-meetups">&mdash;</div></div></div>
   <div class="stat-card"><div class="stat-icon si-orange">&#127942;</div><div><div class="stat-label">Tier 3</div><div class="stat-value" id="s-tier3">&mdash;</div></div></div>
   <div class="stat-card"><div class="stat-icon si-purple">&#9889;</div><div><div class="stat-label">Bkpt Regs</div><div class="stat-value" id="s-bkpt">&mdash;</div></div></div>
 </div>
-
 <div class="main">
 
-<!-- STANDINGS -->
 <div class="tab-panel active" id="tab-standings">
   <div class="filters">
     <div class="search-wrap"><span class="s-icon">&#128269;</span><input type="text" id="search" placeholder="Search leader or chapter&hellip;" oninput="filterTable()"></div>
@@ -330,7 +299,6 @@ textarea.form-input{resize:vertical;min-height:90px}
   <div class="mobile-scroll-hint">&#8592; Scroll to see all columns</div>
 </div>
 
-<!-- DASHBOARD -->
 <div class="tab-panel" id="tab-dashboard">
   <div class="dash-selector-wrap">
     <label for="my-leader-sel">&#128100; Who are you?</label>
@@ -386,7 +354,6 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
-<!-- FORM -->
 <div class="tab-panel" id="tab-form">
   <div class="form-wrap"><div class="form-card">
     <h2 class="form-card-title">Submit CL Contributions</h2>
@@ -422,7 +389,6 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div></div>
 </div>
 
-<!-- RULES -->
 <div class="tab-panel" id="tab-rules">
   <div class="rules-card">
     <div class="rules-title">&#128737; Collaborative Points Philosophy</div>
@@ -467,13 +433,14 @@ textarea.form-input{resize:vertical;min-height:90px}
   </div>
 </div>
 
-</div><!-- .main -->
-</div><!-- #app -->
+</div>
+</div>
 
 <script>
+// Password lives in Google Apps Script — NOT here.
+// This token only protects the GAS endpoint from random public access.
 var GAS_URL      = 'https://script.google.com/macros/s/AKfycbx8h9ZEsT4VZh3kvh-DdM0AF5XRBxYbp3lkUHGE_kbKnDsnE9HlPGI_Z2qcNXssFhoS/exec';
 var SECRET_TOKEN = 'BSCLSecure2024xT9k';
-var PASSWORD     = 'BrowserStack@CL26';
 
 function togglePwVisibility(){
   var inp=document.getElementById('pw-input');
@@ -482,22 +449,45 @@ function togglePwVisibility(){
   else{inp.type='password';eyeOn.style.display='block';eyeOff.style.display='none';}
 }
 
-function checkPw(){
-  if(document.getElementById('pw-input').value===PASSWORD){
-    localStorage.setItem('bs_auth','1');
-    document.getElementById('pw-gate').style.display='none';
-    document.getElementById('app').style.display='block';
-    if(!localStorage.getItem('bs_popup_seen')) document.getElementById('event-popup').classList.add('show');
-    loadLeaderboardData();
-  }else{
-    document.getElementById('pw-err').classList.add('show');
-    document.getElementById('pw-input').value='';
-    document.getElementById('pw-input').type='password';
-    document.getElementById('eye-icon').style.display='block';
-    document.getElementById('eye-off-icon').style.display='none';
-    document.getElementById('pw-input').focus();
-  }
+function setPwLoading(loading){
+  var btn=document.getElementById('pw-btn');
+  var inp=document.getElementById('pw-input');
+  var spinner=document.getElementById('pw-spinner');
+  btn.disabled=loading;
+  inp.disabled=loading;
+  spinner.style.display=loading?'block':'none';
+  document.getElementById('pw-btn-text').textContent=loading?'Verifying…':'Access Portal';
 }
+
+function checkPw(){
+  var val=document.getElementById('pw-input').value.trim();
+  if(!val)return;
+  document.getElementById('pw-err').classList.remove('show');
+  setPwLoading(true);
+  // Send password to GAS for verification — password never stored in this file
+  gasCall({action:'checkPassword',pw:val},function(res){
+    setPwLoading(false);
+    if(res&&res.success){
+      localStorage.setItem('bs_auth','1');
+      document.getElementById('pw-gate').style.display='none';
+      document.getElementById('app').style.display='block';
+      if(!localStorage.getItem('bs_popup_seen')) document.getElementById('event-popup').classList.add('show');
+      loadLeaderboardData();
+    }else{
+      document.getElementById('pw-err').classList.add('show');
+      document.getElementById('pw-input').value='';
+      document.getElementById('pw-input').type='password';
+      document.getElementById('eye-icon').style.display='block';
+      document.getElementById('eye-off-icon').style.display='none';
+      document.getElementById('pw-input').focus();
+    }
+  },function(){
+    setPwLoading(false);
+    document.getElementById('pw-err').textContent='&#10060; Connection error. Please try again.';
+    document.getElementById('pw-err').classList.add('show');
+  });
+}
+
 function closePopup(){localStorage.setItem('bs_popup_seen','1');document.getElementById('event-popup').classList.remove('show');}
 
 if(localStorage.getItem('bs_auth')==='1'){
@@ -564,7 +554,6 @@ function processSheetData(data){
     leaderDataMap[name.toLowerCase()]={name:name,city:city,combined:combined,individual:individual,total:total,milestone:milestone,breakdown:breakdown};
     return{name:name,city:city,combined:combined,individual:individual,total:total,milestone:milestone,bkPts:bkPts,hasMeetup:hasMeetup};
   }).sort(function(a,b){return b.total-a.total;});
-
   var cities=[];
   allLeaders.forEach(function(l){if(l.city&&cities.indexOf(l.city)<0)cities.push(l.city);});
   cities.sort();
