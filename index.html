@@ -9,6 +9,19 @@
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#071320;color:#e2e8f0;min-height:100vh}
 button,select,input,textarea{font-family:inherit}
 
+/* ── Password Gate ── */
+#pw-gate{position:fixed;inset:0;background:#071320;z-index:9999;display:flex;align-items:center;justify-content:center}
+.pw-box{background:#0b1929;border:1px solid #162d47;border-radius:16px;padding:40px 44px;width:100%;max-width:400px;text-align:center}
+.pw-logo{width:52px;height:52px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 18px}
+.pw-title{font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.pw-sub{font-size:.82rem;color:#4b6478;margin-bottom:28px}
+.pw-input{width:100%;background:#071320;border:1px solid #162d47;border-radius:8px;padding:12px 16px;color:#e2e8f0;font-size:.95rem;outline:none;text-align:center;letter-spacing:.05em;margin-bottom:12px;transition:border-color .15s}
+.pw-input:focus{border-color:#3b82f6}
+.pw-btn{width:100%;background:#1d4ed8;border:none;color:#fff;padding:12px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .15s}
+.pw-btn:hover{background:#2563eb}
+.pw-err{color:#f87171;font-size:.82rem;margin-top:10px;display:none}
+.pw-err.show{display:block}
+
 header{background:#0b1929;border-bottom:1px solid #162d47;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:70px;position:sticky;top:0;z-index:100}
 .logo{display:flex;align-items:center;gap:14px}
 .logo-icon{width:42px;height:42px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
@@ -67,7 +80,6 @@ select:focus{border-color:#3b82f6}
 .milestone{padding:3px 10px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.04em;display:inline-block}
 .m-t3{background:#c2410c;color:#fff}.m-t2{background:#374151;color:#d1d5db}.m-t1{background:#78350f;color:#fcd34d}.m-none{color:#4b6478;font-size:.75rem}
 
-/* DASHBOARD */
 .dash-selector-wrap{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:22px 24px;margin-bottom:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .dash-selector-wrap label{font-size:.88rem;color:#94a3b8;font-weight:500;white-space:nowrap}
 .dash-selector-wrap select{flex:1;max-width:380px;padding:10px 14px;font-size:.92rem}
@@ -76,7 +88,6 @@ select:focus{border-color:#3b82f6}
 .dash-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:22px}
 .dash-card.full{grid-column:1/-1}
 .dash-card-title{font-size:.95rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-
 .utm-link-row{background:#071320;border:1px solid #162d47;border-radius:8px;padding:13px 14px;margin-bottom:10px}
 .utm-link-label{font-size:.72rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .utm-link-url{display:flex;align-items:center;gap:8px}
@@ -85,7 +96,6 @@ select:focus{border-color:#3b82f6}
 .copy-btn:hover{background:#1a3a6e}
 .copy-btn.copied{background:#042716;color:#4ade80}
 .utm-note{font-size:.73rem;color:#3d5568;margin-top:12px;line-height:1.5;padding:10px 12px;background:#050e18;border-radius:6px;border-left:2px solid #1d4ed8}
-
 .pts-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
 .pts-sum-item{background:#071320;border-radius:8px;padding:12px;text-align:center}
 .pts-sum-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;margin-bottom:4px}
@@ -93,7 +103,6 @@ select:focus{border-color:#3b82f6}
 .psl-t{color:#94a3b8}.psv-t{color:#e2e8f0}
 .psl-c{color:#06b6d4}.psv-c{color:#06b6d4}
 .psl-i{color:#22c55e}.psv-i{color:#22c55e}
-
 .breakdown-table{width:100%;border-collapse:collapse;font-size:.82rem}
 .breakdown-table th{background:#071320;padding:8px 12px;text-align:left;font-size:.63rem;text-transform:uppercase;letter-spacing:.07em;color:#4b6478;border-bottom:1px solid #162d47}
 .breakdown-table td{padding:9px 12px;border-bottom:1px solid #0d1e2f;color:#c0d0e0;vertical-align:middle}
@@ -105,7 +114,6 @@ select:focus{border-color:#3b82f6}
 .pts-val-pos{font-weight:800;color:#f97316}
 .pts-val-zero{color:#2a3f55}
 
-/* FORM */
 .form-wrap{max-width:600px;margin:0 auto}
 .form-card{background:#0b1929;border:1px solid #162d47;border-radius:16px;padding:32px}
 .form-card-title{font-size:1.35rem;font-weight:700;text-align:center;margin-bottom:6px}
@@ -132,14 +140,12 @@ textarea.form-input{resize:vertical;min-height:90px}
 .btn-purple{background:#7c3aed;border:none;color:#fff;padding:11px 24px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .15s}
 .btn-purple:hover{background:#6d28d9}
 .btn-purple:disabled{opacity:.5;cursor:not-allowed}
-
 .banner{border-radius:8px;padding:12px 16px;font-size:.88rem;margin-bottom:16px;display:none;align-items:center;gap:8px}
 .banner.show{display:flex}
 .banner-ok{background:#052e1e;border:1px solid #15803d;color:#4ade80}
 .banner-err{background:#2d0e0e;border:1px solid #dc2626;color:#f87171}
 .banner-loading{background:#0c2a4a;border:1px solid #1d4ed8;color:#60a5fa}
 
-/* RULES */
 .rules-card{background:#0b1929;border:1px solid #162d47;border-radius:12px;padding:28px;margin-bottom:20px}
 .rules-title{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:20px}
 .info-box{background:#091829;border:1px solid #1a3050;border-radius:8px;padding:14px 16px;display:flex;gap:10px;margin-bottom:14px}
@@ -163,10 +169,24 @@ textarea.form-input{resize:vertical;min-height:90px}
 .pts-table tr:hover td{background:#091829}
 .pts-table tr:last-child td{border-bottom:none}
 .pts-val{font-weight:700;color:#f97316;font-size:.85rem}
-code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-size:.8rem}
 </style>
 </head>
 <body>
+
+<!-- ── PASSWORD GATE ── -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-logo">🏆</div>
+    <div class="pw-title">Chapter Leader Board</div>
+    <div class="pw-sub">BrowserStack Community Portal · Enter your password to continue</div>
+    <input type="password" class="pw-input" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pw-btn" onclick="checkPw()">Access Portal</button>
+    <div class="pw-err" id="pw-err">❌ Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ── MAIN APP (hidden until authenticated) ── -->
+<div id="app" style="display:none">
 
 <header>
   <div class="logo">
@@ -228,13 +248,12 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
     </select>
     <span class="dash-private-note">🔒 Only your own data is shown below</span>
   </div>
-
   <div id="dash-content" style="display:none">
     <div class="dash-grid">
       <div class="dash-card">
         <div class="dash-card-title">🔗 My UTM Links</div>
         <div id="utm-links-container"></div>
-        <div class="utm-note">Use these links exclusively when promoting BrowserStack on social media or inviting members. Each link tracks your personal contributions.</div>
+        <div class="utm-note">Use these links exclusively when promoting BrowserStack on social media or inviting members.</div>
       </div>
       <div class="dash-card">
         <div class="dash-card-title">📊 My Points Summary</div>
@@ -255,7 +274,7 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
     </div>
     <div class="dash-card full" style="margin-top:16px">
       <div class="dash-card-title">⚠ Raise a Points Dispute</div>
-      <div style="font-size:.83rem;color:#94a3b8;margin-bottom:18px;line-height:1.6">If you believe a points entry is incorrect, raise a dispute here. It will be logged in the <strong>Complaints</strong> sheet for the BrowserStack team to review.</div>
+      <div style="font-size:.83rem;color:#94a3b8;margin-bottom:18px;line-height:1.6">If you believe a points entry is incorrect, raise a dispute here.</div>
       <div class="banner banner-ok"      id="dispute-ok">✅ Dispute logged! The team will review and respond.</div>
       <div class="banner banner-err"     id="dispute-err">❌ Something went wrong. Please try again.</div>
       <div class="banner banner-loading" id="dispute-loading">⏳ Submitting…</div>
@@ -283,13 +302,12 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
         </div>
         <div class="form-field">
           <label class="form-label">Describe the issue / add evidence link <span class="req">*</span></label>
-          <textarea class="form-input" id="d-desc" placeholder="Explain what happened and paste any evidence links (Google Drive, LinkedIn post, etc.)" required></textarea>
+          <textarea class="form-input" id="d-desc" placeholder="Explain what happened and paste any evidence links" required></textarea>
         </div>
         <button type="submit" class="btn-purple" id="d-btn">Submit Dispute</button>
       </form>
     </div>
   </div>
-
   <div id="dash-placeholder" style="text-align:center;padding:60px 20px;color:#3d5568">
     <div style="font-size:2.5rem;margin-bottom:12px">👤</div>
     <div style="font-size:1rem;font-weight:600;color:#4b6478;margin-bottom:6px">Select your name above to view your personal dashboard</div>
@@ -328,7 +346,7 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
             <label class="radio-opt"><input type="radio" name="fl-collab" value="No"><span class="radio-opt-label">No</span></label>
           </div>
         </div>
-        <div class="form-field"><label class="form-label">7. Meetup Highlights / Photos</label><input type="url" class="form-input" id="fl-highlights" placeholder="https://drive.google.com/… (Google Drive link)"><p class="form-note">Share a Google Drive link to your photos/highlights.</p></div>
+        <div class="form-field"><label class="form-label">7. Meetup Highlights / Photos</label><input type="url" class="form-input" id="fl-highlights" placeholder="https://drive.google.com/…"><p class="form-note">Share a Google Drive link to your photos/highlights.</p></div>
         <div class="form-field"><label class="form-label">8. Referral — Did you refer a potential new Chapter Leader?</label><input type="text" class="form-input" id="fl-referral" placeholder="Name / email of referred person"></div>
         <div class="form-field"><label class="form-label">9. Promoting other events <span class="req">*</span></label><input type="text" class="form-input" id="fl-promoting" placeholder="Drop your social media post link here" required><p class="form-note">Link to your social media post — required to receive your points!</p></div>
         <button type="submit" class="btn-primary" id="form-btn">Submit and Save to Sheet</button>
@@ -345,10 +363,10 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
       <span style="color:#60a5fa;flex-shrink:0;margin-top:2px">ℹ</span>
       <div class="ib-content">
         <h4>Why split points into 'Combined' and 'Individual'?</h4>
-        <p>The points are split to foster a collaborative environment rather than a competitive one. By separating Combined and Individual categories, we prevent friction between Chapter Leaders within the same chapter, ensuring everyone has a fair, transparent path to progress.</p>
+        <p>The points are split to foster a collaborative environment rather than a competitive one. By separating Combined and Individual categories, we prevent friction between Chapter Leaders within the same chapter.</p>
       </div>
     </div>
-    <p class="rules-para"><strong>Combined Points:</strong> Awarded to all active Chapter Leaders who contribute to the community in that quarter. <em>Note: If a chapter leader has not hosted or contributed to a meetup in a given quarter, they are ineligible for Combined points.</em></p>
+    <p class="rules-para"><strong>Combined Points:</strong> Awarded to all active Chapter Leaders who contribute to the community in that quarter.</p>
     <p class="rules-para"><strong>Individual Points:</strong> Points each Chapter Leader earns independently through event promotion, referrals, and engagement.</p>
   </div>
   <div class="rules-card">
@@ -423,10 +441,33 @@ code{background:#071320;color:#fb923c;padding:1px 5px;border-radius:3px;font-siz
 </div>
 
 </div><!-- /main -->
+</div><!-- /app -->
 
 <script>
-// ── Config (hardcoded — no admin tab needed) ───────────────
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxWd-Olt0vvlU5QEg3ZOk1D55y8Nz__nublF_BIqF2r_eoGvThwjmwgVSe4z8RBAUHQ/exec';
+// ── Config ─────────────────────────────────────────────────
+const GAS_URL      = 'https://script.google.com/macros/s/AKfycbx8h9ZEsT4VZh3kvh-DdM0AF5XRBxYbp3lkUHGE_kbKnDsnE9HlPGI_Z2qcNXssFhoS/exec';
+const SECRET_TOKEN = 'BSCLSecure2024xT9k';
+const PASSWORD     = 'BrowserStack@CL26';
+
+// ── Password Gate ──────────────────────────────────────────
+function checkPw(){
+  const val=document.getElementById('pw-input').value;
+  if(val===PASSWORD){
+    sessionStorage.setItem('bs_auth','1');
+    document.getElementById('pw-gate').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadLeaderboardData();
+  }else{
+    document.getElementById('pw-err').classList.add('show');
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+// Auto-unlock if already authenticated this session
+if(sessionStorage.getItem('bs_auth')==='1'){
+  document.getElementById('pw-gate').style.display='none';
+  document.getElementById('app').style.display='block';
+}
 
 // ── State ──────────────────────────────────────────────────
 let allLeaders    = [];
@@ -442,12 +483,7 @@ const AV_COLORS=['#1d4ed8','#0891b2','#059669','#d97706','#dc2626','#7c3aed','#d
 function avColor(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))&0xffff;return AV_COLORS[h%AV_COLORS.length];}
 function avInitials(n){const p=n.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():n.slice(0,2).toUpperCase();}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function utmSlug(name,city){return(name.split(' ')[0]+'_'+city).toLowerCase().replace(/[^a-z0-9_]/g,'');}
-
-function clearBanners(){
-  ['form-ok','form-err','form-loading','dispute-ok','dispute-err','dispute-loading']
-    .forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('show');});
-}
+function clearBanners(){['form-ok','form-err','form-loading','dispute-ok','dispute-err','dispute-loading'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('show');});}
 function showBanner(id){clearBanners();const el=document.getElementById(id);if(el)el.classList.add('show');}
 
 // ── Tabs ───────────────────────────────────────────────────
@@ -458,25 +494,28 @@ function switchTab(tab,btn){
   if(btn)btn.classList.add('active');
 }
 
-// ── Load leaderboard ───────────────────────────────────────
-function loadLeaderboardData(){
-  document.getElementById('lb-body').innerHTML='<div class="loading"><div class="spinner"></div>Loading from Google Sheets…</div>';
-  const cb='_lbcb_'+Date.now();
-  window[cb]=function(d){delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();processSheetData(d);};
+// ── GAS call with token ────────────────────────────────────
+function gasCall(params,onSuccess,onError){
+  const cb='_gascb_'+Date.now();
+  window[cb]=function(res){delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();onSuccess(res);};
   const s=document.createElement('script');s.setAttribute('data-jsonp','');
-  s.src=GAS_URL+'?callback='+cb;
-  s.onerror=()=>{delete window[cb];document.getElementById('lb-body').innerHTML='<div class="loading">❌ Failed to load data. Please refresh the page.</div>';};
+  s.src=GAS_URL+'?'+new URLSearchParams({...params,token:SECRET_TOKEN,callback:cb}).toString();
+  s.onerror=()=>{delete window[cb];if(onError)onError();};
   document.head.appendChild(s);
 }
 
+// ── Load leaderboard ───────────────────────────────────────
+function loadLeaderboardData(){
+  document.getElementById('lb-body').innerHTML='<div class="loading"><div class="spinner"></div>Loading from Google Sheets…</div>';
+  gasCall({},processSheetData,()=>{
+    document.getElementById('lb-body').innerHTML='<div class="loading">❌ Failed to load. Please refresh.</div>';
+  });
+}
+
 function processSheetData(data){
-  if(!data||data.error){
-    document.getElementById('lb-body').innerHTML='<div class="loading">❌ '+(data?.error||'Unknown error')+'</div>';return;
-  }
+  if(!data||data.error){document.getElementById('lb-body').innerHTML='<div class="loading">❌ '+(data?.error||'Error')+'</div>';return;}
   const {headers,rows}=data;
-  if(!headers||!rows||!rows.length){
-    document.getElementById('lb-body').innerHTML='<div class="loading">No data found.</div>';return;
-  }
+  if(!headers||!rows||!rows.length){document.getElementById('lb-body').innerHTML='<div class="loading">No data found.</div>';return;}
   utmLinksMap=data.utmLinks||{};
   const h=headers.map(s=>String(s).toLowerCase().trim());
   const nameCol=h.findIndex(s=>s==='name');
@@ -519,12 +558,10 @@ function processSheetData(data){
   });
   if(myLeader)renderDashboard(myLeader);
 
-  const meetupsHosted=allLeaders.filter(l=>l.hasMeetup).length;
-  const tier3=allLeaders.filter(l=>l.milestone==='TIER 3').length;
-  const bkRegs=Math.round(allLeaders.reduce((s,l)=>s+l.bkPts,0)/10);
   document.getElementById('s-leaders').textContent=allLeaders.length;
-  document.getElementById('s-meetups').textContent=meetupsHosted;
-  document.getElementById('s-tier3').textContent=tier3;
+  document.getElementById('s-meetups').textContent=allLeaders.filter(l=>l.hasMeetup).length;
+  document.getElementById('s-tier3').textContent=allLeaders.filter(l=>l.milestone==='TIER 3').length;
+  const bkRegs=Math.round(allLeaders.reduce((s,l)=>s+l.bkPts,0)/10);
   document.getElementById('s-bkpt').textContent=bkRegs||'—';
   renderTable(allLeaders);
 }
@@ -584,8 +621,7 @@ function renderDashboard(name){
   const mEl=document.getElementById('dash-milestone');
   mEl.textContent=d.milestone==='NONE'?'No Tier Yet':d.milestone;
   mEl.style.color=d.milestone==='TIER 3'?'#f97316':d.milestone==='TIER 2'?'#94a3b8':d.milestone==='TIER 1'?'#d97706':'#4b6478';
-  renderUTMLinks(d);
-  renderBreakdown(d);
+  renderUTMLinks(d);renderBreakdown(d);
   document.getElementById('d-name').value=d.name;
   document.getElementById('d-city').value=d.city;
 }
@@ -602,22 +638,19 @@ function findDiscordUTM(name){
 
 function renderUTMLinks(d){
   const discordUrl=findDiscordUTM(d.name);
-  const links=[
-    {label:'💬 Discord Community Join',url:discordUrl,placeholder:'No Discord UTM found — contact BrowserStack team'},
-  ];
-  document.getElementById('utm-links-container').innerHTML=links.map((lk,i)=>`
+  document.getElementById('utm-links-container').innerHTML=`
     <div class="utm-link-row">
-      <div class="utm-link-label">${lk.label}</div>
+      <div class="utm-link-label">💬 Discord Community Join</div>
       <div class="utm-link-url">
-        <input type="text" id="utm-inp-${i}" value="${esc(lk.url||lk.placeholder)}" readonly ${lk.url?'':'style="color:#3d5568;font-style:italic"'}>
-        ${lk.url?`<button class="copy-btn" id="utm-cp-${i}" onclick="copyUTM(${i})">Copy</button>`:''}
+        <input type="text" id="utm-inp-0" value="${esc(discordUrl||'No Discord UTM found — contact BrowserStack team')}" readonly ${discordUrl?'':'style="color:#3d5568;font-style:italic"'}>
+        ${discordUrl?'<button class="copy-btn" id="utm-cp-0" onclick="copyUTM()">Copy</button>':''}
       </div>
-    </div>`).join('');
+    </div>`;
 }
 
-function copyUTM(i){
-  navigator.clipboard.writeText(document.getElementById('utm-inp-'+i).value).then(()=>{
-    const btn=document.getElementById('utm-cp-'+i);
+function copyUTM(){
+  navigator.clipboard.writeText(document.getElementById('utm-inp-0').value).then(()=>{
+    const btn=document.getElementById('utm-cp-0');
     btn.textContent='Copied!';btn.classList.add('copied');
     setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
   });
@@ -638,8 +671,7 @@ function submitActivityForm(e){
   e.preventDefault();
   const btn=document.getElementById('form-btn');
   btn.disabled=true;showBanner('form-loading');
-
-  const params={
+  gasCall({
     action:'submitForm',
     leaderName:      document.getElementById('fl-name').value.trim(),
     city:            document.getElementById('fl-city').value.trim(),
@@ -650,19 +682,11 @@ function submitActivityForm(e){
     meetupHighlights:document.getElementById('fl-highlights').value.trim(),
     referral:        document.getElementById('fl-referral').value.trim(),
     promotingEvents: document.getElementById('fl-promoting').value.trim(),
-  };
-
-  const cb='_fmcb_'+Date.now();
-  window[cb]=function(res){
-    delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();
+  },res=>{
     btn.disabled=false;
     if(res&&res.success){showBanner('form-ok');document.getElementById('activity-form').reset();setTimeout(clearBanners,6000);}
     else{showBanner('form-err');setTimeout(clearBanners,6000);}
-  };
-  const s=document.createElement('script');s.setAttribute('data-jsonp','');
-  s.src=GAS_URL+'?'+new URLSearchParams({...params,callback:cb}).toString();
-  s.onerror=()=>{delete window[cb];btn.disabled=false;showBanner('form-err');setTimeout(clearBanners,6000);};
-  document.head.appendChild(s);
+  },()=>{btn.disabled=false;showBanner('form-err');setTimeout(clearBanners,6000);});
 }
 
 // ── Dispute ────────────────────────────────────────────────
@@ -670,8 +694,7 @@ function submitDispute(e){
   e.preventDefault();
   const btn=document.getElementById('d-btn');
   btn.disabled=true;showBanner('dispute-loading');
-
-  const params={
+  gasCall({
     action:'complaint',
     leaderName:  document.getElementById('d-name').value,
     city:        document.getElementById('d-city').value,
@@ -679,11 +702,7 @@ function submitDispute(e){
     ptsShown:    document.getElementById('d-shown').value,
     ptsExpected: document.getElementById('d-expected').value,
     description: document.getElementById('d-desc').value,
-  };
-
-  const cb='_dpcb_'+Date.now();
-  window[cb]=function(res){
-    delete window[cb];document.head.querySelector('script[data-jsonp]')?.remove();
+  },res=>{
     btn.disabled=false;
     if(res&&res.success){
       showBanner('dispute-ok');document.getElementById('dispute-form').reset();
@@ -691,15 +710,11 @@ function submitDispute(e){
       const d=leaderDataMap[myLeader.toLowerCase()];if(d)document.getElementById('d-city').value=d.city;
       setTimeout(clearBanners,6000);
     }else{showBanner('dispute-err');setTimeout(clearBanners,6000);}
-  };
-  const s=document.createElement('script');s.setAttribute('data-jsonp','');
-  s.src=GAS_URL+'?'+new URLSearchParams({...params,callback:cb}).toString();
-  s.onerror=()=>{delete window[cb];btn.disabled=false;showBanner('dispute-err');setTimeout(clearBanners,6000);};
-  document.head.appendChild(s);
+  },()=>{btn.disabled=false;showBanner('dispute-err');setTimeout(clearBanners,6000);});
 }
 
 // ── Init ───────────────────────────────────────────────────
-loadLeaderboardData();
+if(sessionStorage.getItem('bs_auth')==='1') loadLeaderboardData();
 </script>
 </body>
 </html>
