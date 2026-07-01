@@ -222,65 +222,29 @@ textarea.form-input{resize:vertical;min-height:90px}
 }
 
 /* ══════════════════════════════════
-   MOBILE (≤640px) — full redesign
+   MOBILE (≤640px)
 ══════════════════════════════════ */
 @media(max-width:640px){
-  /* Header — compact single row */
-  header{
-    height:auto;
-    padding:10px 14px;
-    flex-direction:column;
-    align-items:stretch;
-    gap:8px;
-    position:sticky;top:0;
-  }
+  header{height:auto;padding:10px 14px;flex-direction:column;align-items:stretch;gap:8px}
   .logo{gap:10px}
   .logo-icon{width:34px;height:34px;font-size:16px}
   .logo-title{font-size:.95rem}
   .logo-sub{display:none}
-  /* Nav: single scrollable row, never wraps */
-  nav{
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    flex-wrap:nowrap;
-    gap:6px;
-    padding-bottom:2px;
-    scrollbar-width:none;
-  }
+  nav{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:6px;padding-bottom:2px;scrollbar-width:none}
   nav::-webkit-scrollbar{display:none}
-  .nav-btn{
-    padding:7px 14px;
-    font-size:.8rem;
-    flex-shrink:0;
-    border-radius:20px;
-    border:1px solid #162d47;
-  }
+  .nav-btn{padding:7px 14px;font-size:.8rem;flex-shrink:0;border-radius:20px;border:1px solid #162d47}
   .nav-btn.active{border-color:transparent}
-
-  /* Stats: 2-col compact */
-  .stats-row{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    padding:14px 14px;
-  }
+  .stats-row{grid-template-columns:1fr 1fr;gap:10px;padding:14px}
   .stat-card{padding:12px 14px;gap:10px;border-radius:10px}
   .stat-icon{width:34px;height:34px;font-size:15px;border-radius:8px}
   .stat-value{font-size:1.6rem}
   .stat-label{font-size:.58rem}
-
-  /* Main padding */
   .main{padding:0 14px 3rem}
-
-  /* Filters: stack */
   .filters{flex-direction:column;gap:8px}
   .search-wrap{width:100%}
   .filters select{width:100%;padding:10px 12px}
-
-  /* Hide desktop table, show cards */
   .lb-table{display:none}
   .lb-cards{display:block}
-
-  /* Dashboard */
   .dash-selector-wrap{flex-direction:column;align-items:stretch;gap:10px;padding:14px}
   .dash-selector-wrap select{max-width:100%;min-width:unset}
   .dash-private-note{display:none}
@@ -291,23 +255,15 @@ textarea.form-input{resize:vertical;min-height:90px}
   .pts-sum-val{font-size:1.25rem}
   .pts-sum-label{font-size:.58rem}
   .breakdown-table th:nth-child(2),.breakdown-table td:nth-child(2){display:none}
-
-  /* Form */
   .form-card{padding:20px 16px;border-radius:12px}
   .form-card-title{font-size:1.1rem}
   .divider{margin:0 -16px 20px}
   .form-row{grid-template-columns:1fr}
-
-  /* Rules */
   .rules-card{padding:18px 14px;border-radius:10px}
   .tier-cards{grid-template-columns:1fr;gap:10px}
-
-  /* Popup */
   .ep-box{padding:24px 18px}
   .ep-title{font-size:1.15rem}
   .ep-btn{padding:11px 20px;font-size:.88rem}
-
-  /* Password box */
   .pw-box{padding:28px 20px}
 }
 </style>
@@ -379,7 +335,6 @@ textarea.form-input{resize:vertical;min-height:90px}
     <select id="filter-tier" onchange="filterTable()"><option value="all">All Tiers</option><option value="TIER 3">Tier 3 (2000+ pts)</option><option value="TIER 2">Tier 2 (1550+ pts)</option><option value="TIER 1">Tier 1 (650+ pts)</option><option value="NONE">No Tier Yet</option></select>
     <select id="filter-chapter" onchange="filterTable()"><option value="all">All Chapters</option></select>
   </div>
-  <!-- Desktop table -->
   <div class="lb-table">
     <div class="lb-scroll">
       <div class="lb-head">
@@ -393,7 +348,6 @@ textarea.form-input{resize:vertical;min-height:90px}
       <div id="lb-body"><div class="loading"><div class="spinner"></div>Loading&hellip;</div></div>
     </div>
   </div>
-  <!-- Mobile cards -->
   <div class="lb-cards" id="lb-cards"><div class="loading"><div class="spinner"></div>Loading&hellip;</div></div>
 </div>
 
@@ -677,7 +631,7 @@ function processSheetData(data){
   sel.innerHTML='<option value="all">All Chapters</option>';
   cities.forEach(function(c){sel.innerHTML+='<option value="'+c.toLowerCase()+'">'+esc(c)+'</option>';});
   var dSel=document.getElementById('my-leader-sel');
-  dSel.innerHTML='<option value="">&mdash; Select your name &mdash;</option>';
+  dSel.innerHTML='<option value="">— Select your name —</option>';
   allLeaders.forEach(function(l){var o=document.createElement('option');o.value=l.name;o.textContent=l.name+' ('+l.city+')';if(l.name===myLeader)o.selected=true;dSel.appendChild(o);});
   if(myLeader)renderDashboard(myLeader);
   document.getElementById('s-leaders').textContent=allLeaders.length;
@@ -690,7 +644,6 @@ function processSheetData(data){
 function renderTable(leaders){
   var empty='<div class="loading">No results match your filters.</div>';
   if(!leaders.length){document.getElementById('lb-body').innerHTML=empty;document.getElementById('lb-cards').innerHTML=empty;return;}
-  // Desktop rows
   document.getElementById('lb-body').innerHTML=leaders.map(function(l,i){
     var rank=i+1,rC=rank===1?'r1':rank===2?'r2':rank===3?'r3':'rn';
     var mC=l.milestone==='TIER 3'?'m-t3':l.milestone==='TIER 2'?'m-t2':l.milestone==='TIER 1'?'m-t1':'m-none';
@@ -698,14 +651,13 @@ function renderTable(leaders){
     return '<div class="leader-row" onclick="jumpToDash(\''+sn+'\')">'
       +'<div><span class="rank-badge '+rC+'">'+rank+'</span></div>'
       +'<div class="leader-info"><div class="avatar" style="background:'+avColor(l.name)+'">'+avInitials(l.name)+'</div>'
-      +'<div style="min-width:0"><div class="leader-name">'+esc(l.name)+'</div><div class="leader-city">&#128205; '+esc(l.city)+'</div></div></div>'
+      +'<div style="min-width:0"><div class="leader-name">'+esc(l.name)+'</div><div class="leader-city">\u{1F4CD} '+esc(l.city)+'</div></div></div>'
       +'<div class="pts-col"><div class="pts-label l-comb">COMBINED</div><div class="pts-num n-comb">'+l.combined.toLocaleString()+'</div></div>'
       +'<div class="pts-col"><div class="pts-label l-indiv">INDIVIDUAL</div><div class="pts-num n-indiv">'+l.individual.toLocaleString()+'</div></div>'
       +'<div class="total-num">'+l.total.toLocaleString()+'</div>'
       +'<div><span class="milestone '+mC+'">'+(l.milestone==='NONE'?'None':l.milestone)+'</span></div>'
       +'</div>';
   }).join('');
-  // Mobile cards
   document.getElementById('lb-cards').innerHTML=leaders.map(function(l,i){
     var rank=i+1,rC=rank===1?'r1':rank===2?'r2':rank===3?'r3':'rn';
     var mC=l.milestone==='TIER 3'?'m-t3':l.milestone==='TIER 2'?'m-t2':l.milestone==='TIER 1'?'m-t1':'m-none';
@@ -714,7 +666,7 @@ function renderTable(leaders){
       +'<div class="lb-card-top">'
       +'<span class="lb-card-rank rank-badge '+rC+'">'+rank+'</span>'
       +'<div class="lb-card-avatar" style="background:'+avColor(l.name)+'">'+avInitials(l.name)+'</div>'
-      +'<div style="min-width:0;flex:1"><div class="lb-card-name">'+esc(l.name)+'</div><div class="lb-card-city">&#128205; '+esc(l.city)+'</div></div>'
+      +'<div style="min-width:0;flex:1"><div class="lb-card-name">'+esc(l.name)+'</div><div class="lb-card-city">\u{1F4CD} '+esc(l.city)+'</div></div>'
       +'<div class="lb-card-total"><div class="lb-card-total-val">'+l.total.toLocaleString()+'</div><div class="lb-card-total-label">Total pts</div></div>'
       +'</div>'
       +'<div class="lb-card-bottom">'
@@ -771,7 +723,7 @@ function findDiscordUTM(name){
 
 function renderUTMLinks(d){
   var url=findDiscordUTM(d.name);
-  document.getElementById('utm-links-container').innerHTML='<div class="utm-link-row"><div class="utm-link-label">&#128172; Discord Community Join</div><div class="utm-link-url"><input type="text" id="utm-inp-0" value="'+(url?esc(url):'No Discord UTM found — contact BrowserStack team')+'" readonly '+(url?'':'style="color:#3d5568;font-style:italic"')+'>'+(url?'<button class="copy-btn" id="utm-cp-0" onclick="copyUTM()">Copy</button>':'')+'</div></div>';
+  document.getElementById('utm-links-container').innerHTML='<div class="utm-link-row"><div class="utm-link-label">\u{1F4AC} Discord Community Join</div><div class="utm-link-url"><input type="text" id="utm-inp-0" value="'+(url?esc(url):'No Discord UTM found — contact BrowserStack team')+'" readonly '+(url?'':'style="color:#3d5568;font-style:italic"')+'>'+(url?'<button class="copy-btn" id="utm-cp-0" onclick="copyUTM()">Copy</button>':'')+'</div></div>';
 }
 
 function copyUTM(){
